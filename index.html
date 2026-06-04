@@ -6,106 +6,96 @@
     <meta name="theme-color" content="#2d8a4e">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
-    <title>رَيْم - RYM Darija</title>
+    <title>رَيْم - RYM Darija Algérien</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { background: linear-gradient(135deg, #f0f7f2 0%, #ffffff 100%); min-height: 100vh; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: transparent;
-            color: #1a1a1a;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            opacity: 0.12;
-            background-image: linear-gradient(45deg, #1a5c2a 25%, transparent 25%), linear-gradient(-45deg, #1a5c2a 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1a5c2a 75%), linear-gradient(-45deg, transparent 75%, #1a5c2a 75%);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .navbar { background: #ffffff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #2d8a4e; }
-        .logo { font-family: 'Playfair Display'; font-size: 22px; font-weight: 900; color: #2d8a4e; flex: 1; text-align: center; }
-        .logo-ar { font-family: 'Amiri'; font-size: 16px; color: #2d8a4e; text-align: center; font-weight: 700; }
-        .profile-svg { width: 40px; height: 40px; background: linear-gradient(135deg, #2d8a4e, #1a5c2a); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .profile-svg svg { width: 22px; height: 22px; stroke: white; stroke-width: 1.5; }
-        .slider { background: #ffffff; padding: 12px 16px; overflow-x: auto; border-bottom: 1px solid #e0e0e0; }
-        .slider-inner { display: flex; gap: 10px; }
-        .cat-btn { padding: 10px 18px; background: #f0f7f2; border: 2px solid #2d8a4e; border-radius: 24px; color: #2d8a4e; cursor: pointer; white-space: nowrap; font-size: 13px; font-weight: 600; flex-shrink: 0; }
+        body { font-family: 'Inter', sans-serif; background: transparent; color: #1a1a1a; position: relative; display: flex; flex-direction: column; min-height: 100vh; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.12; background-image: linear-gradient(45deg, #1a5c2a 25%, transparent 25%), linear-gradient(-45deg, #1a5c2a 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #1a5c2a 75%), linear-gradient(-45deg, transparent 75%, #1a5c2a 75%); background-size: 40px 40px; pointer-events: none; z-index: -1; }
+        .navbar { background: #ffffff; padding: 12px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #2d8a4e; }
+        .logo { font-family: 'Playfair Display'; font-size: 18px; font-weight: 900; color: #2d8a4e; flex: 1; text-align: center; }
+        .logo-ar { font-family: 'Amiri'; font-size: 13px; color: #2d8a4e; text-align: center; font-weight: 700; }
+        .profile-svg { width: 36px; height: 36px; background: linear-gradient(135deg, #2d8a4e, #1a5c2a); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+        .profile-svg svg { width: 20px; height: 20px; stroke: white; stroke-width: 1.5; }
+        .slider { background: #ffffff; padding: 10px 12px; overflow-x: auto; border-bottom: 1px solid #e0e0e0; }
+        .slider-inner { display: flex; gap: 8px; }
+        .cat-btn { padding: 8px 14px; background: #f0f7f2; border: 2px solid #2d8a4e; border-radius: 20px; color: #2d8a4e; cursor: pointer; white-space: nowrap; font-size: 12px; font-weight: 600; flex-shrink: 0; }
         .cat-btn.active { background: #2d8a4e; color: #fff; }
-        
-        .content-wrapper { flex: 1; overflow-y: auto; padding-bottom: 100px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 24px 16px; }
-        .card { 
-            background: #ffffff;
-            border: 2px solid #2d8a4e; 
-            border-radius: 16px; 
-            padding: 18px; 
-            cursor: pointer; 
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .card-emoji { font-size: 32px; margin-bottom: 10px; }
-        .card-title { font-family: 'Playfair Display'; font-size: 14px; font-weight: 700; color: #2d8a4e; }
-        
-        .detail-header { background: #ffffff; padding: 16px; border-bottom: 2px solid #2d8a4e; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 10; }
-        .back-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #2d8a4e; }
-        .detail-content { padding: 24px 16px; }
-        
-        .tabs { display: flex; gap: 12px; border-bottom: 2px solid #e0e0e0; padding-bottom: 12px; overflow-x: auto; margin-bottom: 20px; }
-        .tab { background: none; border: none; cursor: pointer; font-family: 'Playfair Display'; font-size: 13px; font-weight: 700; color: #999; white-space: nowrap; padding: 8px 0; }
-        .tab.active { color: #2d8a4e; border-bottom: 3px solid #2d8a4e; margin-bottom: -15px; padding-bottom: 15px; }
-        
-        .vocab-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; gap: 12px; }
-        .vocab-emoji { font-size: 28px; }
+        .content-wrapper { flex: 1; overflow-y: auto; padding-bottom: 110px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 16px 12px; }
+        @media (min-width: 480px) { .grid { grid-template-columns: 1fr 1fr; padding: 20px 16px; } }
+        @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; gap: 16px; padding: 24px 16px; } }
+        .card { background: #ffffff; border: 2px solid #2d8a4e; border-radius: 14px; padding: 14px; cursor: pointer; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .card-emoji { font-size: 28px; margin-bottom: 8px; }
+        .card-title { font-family: 'Playfair Display'; font-size: 12px; font-weight: 700; color: #2d8a4e; }
+        @media (min-width: 480px) { .card { padding: 16px; } .card-emoji { font-size: 32px; margin-bottom: 10px; } .card-title { font-size: 14px; } }
+        .detail-header { background: #ffffff; padding: 12px; border-bottom: 2px solid #2d8a4e; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 10; }
+        .detail-header h2 { font-size: 16px; flex: 1; }
+        @media (min-width: 480px) { .detail-header { padding: 16px; } .detail-header h2 { font-size: 18px; } }
+        .back-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: #2d8a4e; }
+        .detail-content { padding: 16px 12px; }
+        @media (min-width: 480px) { .detail-content { padding: 20px 16px; } }
+        .tabs { display: flex; gap: 10px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; overflow-x: auto; margin-bottom: 16px; }
+        @media (min-width: 480px) { .tabs { margin-bottom: 20px; } }
+        .tab { background: none; border: none; cursor: pointer; font-family: 'Playfair Display'; font-size: 12px; font-weight: 700; color: #999; white-space: nowrap; padding: 6px 0; }
+        @media (min-width: 480px) { .tab { font-size: 13px; padding: 8px 0; } }
+        .tab.active { color: #2d8a4e; border-bottom: 3px solid #2d8a4e; margin-bottom: -13px; padding-bottom: 13px; }
+        .vocab-card { background: #ffffff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px; margin-bottom: 8px; display: flex; gap: 10px; }
+        @media (min-width: 480px) { .vocab-card { padding: 14px; margin-bottom: 10px; } }
+        .vocab-emoji { font-size: 24px; }
+        @media (min-width: 480px) { .vocab-emoji { font-size: 28px; } }
         .vocab-text { flex: 1; }
-        .vocab-darija { font-family: 'Amiri'; font-size: 18px; color: #2d8a4e; font-weight: 600; margin: 0; }
-        .vocab-fr { font-size: 12px; color: #1a1a1a; margin: 4px 0 0 0; }
-        
-        .qcm-box { background: #ffffff; border: 2px solid #2d8a4e; border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center; }
-        .qcm-word { font-family: 'Amiri'; font-size: 32px; color: #2d8a4e; font-weight: 700; margin: 16px 0; }
-        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
-        .option-btn { padding: 12px; background: #ffffff; border: 2px solid #e0e0e0; border-radius: 12px; cursor: pointer; font-size: 12px; font-weight: 600; }
+        .vocab-darija { font-family: 'Amiri'; font-size: 16px; color: #2d8a4e; font-weight: 600; margin: 0; }
+        @media (min-width: 480px) { .vocab-darija { font-size: 18px; } }
+        .vocab-fr { font-size: 11px; color: #1a1a1a; margin: 3px 0 0 0; }
+        @media (min-width: 480px) { .vocab-fr { font-size: 12px; margin: 4px 0 0 0; } }
+        .qcm-box { background: #ffffff; border: 2px solid #2d8a4e; border-radius: 14px; padding: 16px; margin-bottom: 16px; text-align: center; }
+        @media (min-width: 480px) { .qcm-box { padding: 20px; } }
+        .qcm-word { font-family: 'Amiri'; font-size: 28px; color: #2d8a4e; font-weight: 700; margin: 12px 0; }
+        @media (min-width: 480px) { .qcm-word { font-size: 32px; margin: 16px 0; } }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0; }
+        @media (min-width: 480px) { .options { grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 16px 0; } }
+        @media (min-width: 768px) { .options { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; } }
+        .option-btn { padding: 10px 6px; background: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 600; word-wrap: break-word; }
+        @media (min-width: 480px) { .option-btn { padding: 12px; font-size: 12px; } }
         .option-btn.correct { background: #2d8a4e; color: #fff; }
         .option-btn.wrong { background: #ffebee; border-color: #d32f2f; }
-        .next-btn { width: 100%; padding: 14px; background: #2d8a4e; color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; display: none; }
-        
+        .next-btn { width: 100%; padding: 12px; background: #2d8a4e; color: #fff; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; display: none; font-size: 12px; }
+        @media (min-width: 480px) { .next-btn { padding: 14px; font-size: 13px; } }
         .content { display: none; }
         .content.active { display: block; }
-        
-        .achievement { background: linear-gradient(135deg, #4caf72, #2d8a4e); padding: 16px; border-radius: 12px; text-align: center; margin-bottom: 20px; display: none; color: #fff; }
+        .achievement { background: linear-gradient(135deg, #4caf72, #2d8a4e); padding: 14px; border-radius: 10px; text-align: center; margin-bottom: 16px; display: none; color: #fff; font-size: 13px; }
+        @media (min-width: 480px) { .achievement { padding: 16px; margin-bottom: 20px; } }
         .achievement.show { display: block; }
-
-        .ia-container { background: #ffffff; border: 2px solid #2d8a4e; border-radius: 16px; padding: 20px; }
-        .ia-question { font-family: 'Amiri'; font-size: 18px; color: #2d8a4e; font-weight: 600; margin-bottom: 20px; text-align: center; }
-        .ia-input { width: 100%; padding: 12px; border: 2px solid #2d8a4e; border-radius: 8px; margin-bottom: 12px; font-size: 14px; }
-        .ia-btn { width: 100%; padding: 12px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 12px; }
-        .ia-feedback { background: #f0f7f2; border: 1px solid #2d8a4e; border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 13px; color: #1a1a1a; }
-        .ia-hint { background: #e3f2fd; border-left: 4px solid #2d8a4e; padding: 10px; margin-bottom: 12px; font-size: 12px; }
-
-        .profile-container { background: #ffffff; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
-        .profile-field { margin-bottom: 16px; }
-        .profile-label { font-size: 12px; font-weight: 600; color: #2d8a4e; margin-bottom: 6px; display: block; }
-        .profile-input { width: 100%; padding: 10px; border: 2px solid #2d8a4e; border-radius: 8px; font-size: 14px; }
-        .profile-btn { width: 100%; padding: 12px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 8px; }
-
-        .bottom-buttons { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 2px solid #2d8a4e; padding: 8px; display: flex; gap: 8px; z-index: 100; }
-        .bottom-btn { flex: 1; padding: 12px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 12px; }
+        .ia-container { background: #ffffff; border: 2px solid #2d8a4e; border-radius: 14px; padding: 16px; }
+        @media (min-width: 480px) { .ia-container { padding: 20px; } }
+        .ia-question { font-family: 'Amiri'; font-size: 16px; color: #2d8a4e; font-weight: 600; margin-bottom: 16px; text-align: center; }
+        @media (min-width: 480px) { .ia-question { font-size: 18px; margin-bottom: 20px; } }
+        .ia-input { width: 100%; padding: 10px; border: 2px solid #2d8a4e; border-radius: 8px; margin-bottom: 10px; font-size: 13px; }
+        @media (min-width: 480px) { .ia-input { padding: 12px; margin-bottom: 12px; font-size: 14px; } }
+        .ia-btn { width: 100%; padding: 10px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 10px; font-size: 12px; }
+        @media (min-width: 480px) { .ia-btn { padding: 12px; margin-bottom: 12px; font-size: 13px; } }
+        .ia-feedback { background: #f0f7f2; border: 1px solid #2d8a4e; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 12px; color: #1a1a1a; }
+        @media (min-width: 480px) { .ia-feedback { padding: 12px; margin-bottom: 12px; font-size: 13px; } }
+        .ia-hint { background: #e3f2fd; border-left: 4px solid #2d8a4e; padding: 8px; margin-bottom: 10px; font-size: 11px; }
+        @media (min-width: 480px) { .ia-hint { padding: 10px; margin-bottom: 12px; font-size: 12px; } }
+        .profile-container { background: #ffffff; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+        @media (min-width: 480px) { .profile-container { padding: 20px; margin-bottom: 20px; } }
+        .profile-field { margin-bottom: 12px; }
+        @media (min-width: 480px) { .profile-field { margin-bottom: 16px; } }
+        .profile-label { font-size: 11px; font-weight: 600; color: #2d8a4e; margin-bottom: 4px; display: block; }
+        @media (min-width: 480px) { .profile-label { font-size: 12px; margin-bottom: 6px; } }
+        .profile-input { width: 100%; padding: 8px; border: 2px solid #2d8a4e; border-radius: 8px; font-size: 12px; }
+        @media (min-width: 480px) { .profile-input { padding: 10px; font-size: 14px; } }
+        .bottom-buttons { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 2px solid #2d8a4e; padding: 6px; display: flex; gap: 6px; z-index: 100; flex-wrap: wrap; }
+        @media (min-width: 480px) { .bottom-buttons { padding: 8px; gap: 8px; flex-wrap: nowrap; } }
+        .bottom-btn { flex: 1; padding: 10px 6px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 11px; }
+        @media (min-width: 480px) { .bottom-btn { padding: 12px; font-size: 12px; } }
         .bottom-btn.info { background: #4caf72; }
         .bottom-btn.warn { background: #ffffff; border: 2px solid #2d8a4e; color: #2d8a4e; }
-        
-        #home { padding: 24px 16px; }
+        #home { padding: 16px 12px; }
+        @media (min-width: 480px) { #home { padding: 24px 16px; } }
     </style>
 </head>
 <body>
@@ -127,8 +117,10 @@
             <div class="detail-content">
                 <div class="achievement" id="achievement"></div>
                 <div class="tabs" id="tabs"></div>
-                <div id="vocab" class="content active"></div>
+                <div id="cartes" class="content active"></div>
+                <div id="vocab" class="content"></div>
                 <div id="qcm" class="content"></div>
+                <div id="phrase" class="content"></div>
                 <div id="shadowing" class="content"></div>
             </div>
         </div>
@@ -139,57 +131,25 @@
         </div>
 
         <div id="profile-page" style="display: none;">
-            <div class="detail-header"><button class="back-btn" onclick="backHome()">←</button><h2>👤 Mon Profil</h2></div>
+            <div class="detail-header"><button class="back-btn" onclick="backHome()">←</button><h2>👤 Profil Nta3i</h2></div>
             <div class="detail-content">
                 <div class="profile-container">
                     <div style="background: linear-gradient(135deg, #2d8a4e, #1a5c2a); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
-                        <p style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">🎓 RYM Learner</p>
+                        <p style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">🎓 RYM Taleb/Talba</p>
                         <p style="font-size: 13px; opacity: 0.9;">Niveau <span id="prof-level-header">1</span> • <span id="prof-xp-header">0</span> XP</p>
                     </div>
-
-                    <div class="profile-field">
-                        <label class="profile-label">Nom</label>
-                        <input type="text" class="profile-input" id="prof-nom" placeholder="Ton nom">
-                    </div>
-                    <div class="profile-field">
-                        <label class="profile-label">Email</label>
-                        <input type="email" class="profile-input" id="prof-email" placeholder="ton@email.com">
-                    </div>
-                    <div class="profile-field">
-                        <label class="profile-label">Pays</label>
-                        <input type="text" class="profile-input" id="prof-pays" placeholder="Ton pays">
-                    </div>
-                    <div class="profile-field">
-                        <label class="profile-label">Bio</label>
-                        <textarea class="profile-input" id="prof-bio" placeholder="À propos de toi..." style="height: 80px; resize: none;"></textarea>
-                    </div>
-
+                    <div class="profile-field"><label class="profile-label">Esmek</label><input type="text" class="profile-input" id="prof-nom" placeholder="Esmek"></div>
+                    <div class="profile-field"><label class="profile-label">Email</label><input type="email" class="profile-input" id="prof-email" placeholder="email@example.com"></div>
+                    <div class="profile-field"><label class="profile-label">Bladi</label><input type="text" class="profile-input" id="prof-pays" placeholder="Bladi"></div>
+                    <div class="profile-field"><label class="profile-label">Anaan</label><textarea class="profile-input" id="prof-bio" placeholder="Qul 3lina..." style="height: 80px; resize: none;"></textarea></div>
                     <div style="background: linear-gradient(135deg, #f0f7f2, #e8f5e9); border: 2px solid #2d8a4e; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
-                        <p style="font-weight: 700; color: #2d8a4e; margin-bottom: 12px;">📊 STATISTIQUES</p>
+                        <p style="font-weight: 700; color: #2d8a4e; margin-bottom: 12px;">📊 Stat Nta3i</p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #ff9800;">
-                                <p style="font-size: 11px; color: #666; margin-bottom: 4px;">Jours</p>
-                                <p style="font-size: 24px; font-weight: 700; color: #ff9800;">🔥 <span id="prof-streak">0</span></p>
-                            </div>
-                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #ffc107;">
-                                <p style="font-size: 11px; color: #666; margin-bottom: 4px;">XP</p>
-                                <p style="font-size: 24px; font-weight: 700; color: #ffc107;">⭐ <span id="prof-xp">0</span></p>
-                            </div>
-                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #2d8a4e;">
-                                <p style="font-size: 11px; color: #666; margin-bottom: 4px;">Niveau</p>
-                                <p style="font-size: 24px; font-weight: 700; color: #2d8a4e;">📈 <span id="prof-level">1</span></p>
-                            </div>
-                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #4caf72;">
-                                <p style="font-size: 11px; color: #666; margin-bottom: 4px;">Vocabulaire</p>
-                                <p style="font-size: 24px; font-weight: 700; color: #4caf72;">📚 <span id="prof-vocab">0</span></p>
-                            </div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #ff9800;"><p style="font-size: 11px; color: #666; margin-bottom: 4px;">Iyyam</p><p style="font-size: 24px; font-weight: 700; color: #ff9800;">🔥 <span id="prof-streak">0</span></p></div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #ffc107;"><p style="font-size: 11px; color: #666; margin-bottom: 4px;">XP</p><p style="font-size: 24px; font-weight: 700; color: #ffc107;">⭐ <span id="prof-xp">0</span></p></div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #2d8a4e;"><p style="font-size: 11px; color: #666; margin-bottom: 4px;">Niveau</p><p style="font-size: 24px; font-weight: 700; color: #2d8a4e;">📈 <span id="prof-level">1</span></p></div>
+                            <div style="background: #ffffff; padding: 12px; border-radius: 8px; text-align: center; border-left: 4px solid #4caf72;"><p style="font-size: 11px; color: #666; margin-bottom: 4px;">Mkalyim</p><p style="font-size: 24px; font-weight: 700; color: #4caf72;">📚 <span id="prof-vocab">0</span></p></div>
                         </div>
-                    </div>
-
-                    <div style="background: #e3f2fd; border-left: 4px solid #2196f3; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-                        <p style="font-weight: 600; color: #1565c0; font-size: 13px; margin-bottom: 6px;">ℹ️ À propos</p>
-                        <p style="font-size: 12px; color: #0d47a1; margin-bottom: 4px;"><strong>Inscrit depuis:</strong> <span id="prof-date">Aujourd'hui</span></p>
-                        <p style="font-size: 12px; color: #0d47a1;"><strong>Mots appris:</strong> <span id="prof-total-vocab">0</span> mots</p>
                     </div>
                 </div>
             </div>
@@ -197,78 +157,531 @@
     </div>
 
     <div class="bottom-buttons">
-        <button class="bottom-btn info" onclick="loadProfile()">📥 Charger</button>
-        <button class="bottom-btn warn" onclick="installPWA()">⬇️ Installer</button>
-        <button class="bottom-btn" onclick="saveProfile()">💾 Sauvegarder</button>
+        <button class="bottom-btn info" onclick="loadProfile()">📥 Charge</button>
+        <button class="bottom-btn warn" onclick="installPWA()">⬇️ Sab</button>
+        <button class="bottom-btn" onclick="saveProfile()">💾 Mahfad</button>
     </div>
 
     <script>
         const CATEGORIES = {
             'Fondamentaux': [
                 { id: 1, emoji: '👋', name: 'Salutations', vocab: [
-                    { darija: 'Salam', ar: 'السلام', fr: 'Bonjour' }, { darija: 'Labas', ar: 'لابأس', fr: 'Ca va' }, { darija: 'Shukran', ar: 'شكراً', fr: 'Merci' }, { darija: 'Wakha', ar: 'واخا', fr: 'Accord' }, { darija: 'Naam', ar: 'نعم', fr: 'Oui' }, { darija: 'La', ar: 'لا', fr: 'Non' }, { darija: 'Afak', ar: 'من فضلك', fr: 'Sil te plait' }, { darija: 'Slama', ar: 'سلامة', fr: 'Au revoir' }, { darija: 'Tsbah', ar: 'تصبح على خير', fr: 'Bonne nuit' }, { darija: 'Marhba', ar: 'مرحبا', fr: 'Bienvenue' }, { darija: 'Semhlah', ar: 'سمحلاه', fr: 'Pardon' }, { darija: 'Kaslama', ar: 'قاسلامة', fr: 'A bientot' }, { darija: 'Labas bezzaf', ar: 'لابأس بزاف', fr: 'Ca va tres bien' }, { darija: 'Khaddi', ar: 'خدي', fr: 'Tiens' }, { darija: 'Fhemta', ar: 'فهمت', fr: 'J ai compris' }, { darija: 'Mfhimesh', ar: 'ما فهمتش', fr: 'Je n ai pas compris' }, { darija: 'Baraka', ar: 'بارك', fr: 'Beni' }, { darija: 'Safi', ar: 'صافي', fr: 'Cest bon' }, { darija: 'Mzian', ar: 'مزيان', fr: 'Tres bien' }, { darija: 'Qawi', ar: 'قوي', fr: 'Fort' }, { darija: 'Daiif', ar: 'ضعيف', fr: 'Faible' }, { darija: 'Khassni', ar: 'خاصني', fr: 'J ai besoin' }, { darija: 'Ghanit', ar: 'غنيت', fr: 'Riche' }, { darija: 'Fqir', ar: 'فقير', fr: 'Pauvre' }, { darija: 'Salam alaikum', ar: 'السلام عليكم', fr: 'Que la paix soit sur toi' }, { darija: 'Wa alaikum assalam', ar: 'وعليكم السلام', fr: 'Et sur toi' }, { darija: 'Ashta', ar: 'أشتا', fr: 'Ca roule' }, { darija: 'Hallah', ar: 'هلا', fr: 'Salut' }, { darija: 'Khabar', ar: 'خبار', fr: 'Quoi de neuf' }, { darija: 'Sukr bzaf', ar: 'شكر بزاف', fr: 'Merci beaucoup' }, { darija: 'La shukran', ar: 'لا شكرا', fr: 'Non merci' }, { darija: 'Afak shuma', ar: 'أفاق شومة', fr: 'Un peu sil te plait' }, { darija: 'Shwiya', ar: 'شوية', fr: 'Un peu' }, { darija: 'Bezzaf', ar: 'بزاف', fr: 'Beaucoup' }, { darija: 'Tmam', ar: 'تمام', fr: 'Parfait' }, { darija: 'Zwin bzaf', ar: 'جميل بزاف', fr: 'Tres beau' }, { darija: 'Sbahlak', ar: 'صباح الخير', fr: 'Bon matin' }, { darija: 'Masaahlak', ar: 'مساء الخير', fr: 'Bonsoir' }, { darija: 'Labas dad', ar: 'لابأس يا والدي', fr: 'Ca va pere' }, { darija: 'Labas yemma', ar: 'لابأس يا امي', fr: 'Ca va mere' }, { darija: 'Akhsas', ar: 'أخص', fr: 'J ai peur' }, { darija: 'Mashi walou', ar: 'ماشي والو', fr: 'Ca va pas' }
+                    { darija: 'Salam', ar: 'سلام', fr: 'Bonjour' },
+                    { darija: 'Labas', ar: 'لابأس', fr: 'Ca va' },
+                    { darija: 'Kifen ntaa', ar: 'كيفن نتاع', fr: 'Comment tu vas' },
+                    { darija: 'Labas bezzaf', ar: 'لابأس بزاف', fr: 'Ca va tres bien' },
+                    { darija: 'Wakha', ar: 'واخا', fr: 'Accord' },
+                    { darija: 'Naam', ar: 'نعم', fr: 'Oui' },
+                    { darija: 'La', ar: 'لا', fr: 'Non' },
+                    { darija: 'Afak', ar: 'من فضلك', fr: 'Sil te plait' },
+                    { darija: 'Salam alaikum', ar: 'السلام عليكم', fr: 'Salut' },
+                    { darija: 'Wa alaikum assalam', ar: 'وعليكم السلام', fr: 'Et salut a toi' },
+                    { darija: 'Slama', ar: 'سلامة', fr: 'Au revoir' },
+                    { darija: 'Kaslama', ar: 'قاسلامة', fr: 'A bientot' },
+                    { darija: 'Shukran', ar: 'شكرا', fr: 'Merci' },
+                    { darija: 'Sukr bzaf', ar: 'شكر بزاف', fr: 'Merci beaucoup' },
+                    { darija: 'Bsahlak', ar: 'بسحلك', fr: 'Bon matin' },
+                    { darija: 'Tmam tamam', ar: 'تمام تمام', fr: 'Parfait' },
+                    { darija: 'Mzian', ar: 'مزيان', fr: 'Tres bien' },
+                    { darija: 'Zwin bzaf', ar: 'جميل بزاف', fr: 'Tres beau' },
+                    { darija: 'Semhli', ar: 'سمحلي', fr: 'Pardonne-moi' },
+                    { darija: 'Tekhhel', ar: 'تخيل', fr: 'Attends' },
+                    { darija: 'Fhemtni', ar: 'فهمتني', fr: 'Tu m as compris' },
+                    { darija: 'Manich fahem', ar: 'مانيش فاهم', fr: 'Je comprends pas' },
+                    { darija: 'Qul li', ar: 'قول لي', fr: 'Dis-moi' },
+                    { darija: 'Nta kifen', ar: 'نتا كيفن', fr: 'Et toi comment' },
+                    { darija: 'Hamdullah', ar: 'الحمدلله', fr: 'Grace a Dieu' }
                 ] },
-                { id: 2, emoji: '🔢', name: 'Chiffres (1-1000)', vocab: [
-                    { darija: 'Whaad', ar: 'واحد', fr: 'Un' }, { darija: 'Zouj', ar: 'اثنان', fr: 'Deux' }, { darija: 'Talata', ar: 'ثلاثة', fr: 'Trois' }, { darija: 'Rba', ar: 'أربعة', fr: 'Quatre' }, { darija: 'Khemsa', ar: 'خمسة', fr: 'Cinq' }, { darija: 'Stta', ar: 'ستة', fr: 'Six' }, { darija: 'Sabaa', ar: 'سبعة', fr: 'Sept' }, { darija: 'Tmaniya', ar: 'ثمانية', fr: 'Huit' }, { darija: 'Tisaa', ar: 'تسعة', fr: 'Neuf' }, { darija: 'Ashara', ar: 'عشرة', fr: 'Dix' }, { darija: 'Heddasha', ar: 'حداشر', fr: 'Onze' }, { darija: 'Ethnasha', ar: 'اثناشر', fr: 'Douze' }, { darija: 'Talataashar', ar: 'ثلاثة عشر', fr: 'Treize' }, { darija: 'Rbaashar', ar: 'أربعة عشر', fr: 'Quatorze' }, { darija: 'Khamsaashar', ar: 'خمسة عشر', fr: 'Quinze' }, { darija: 'Sittaashar', ar: 'ستة عشر', fr: 'Seize' }, { darija: 'Sabaaashar', ar: 'سبعة عشر', fr: 'Dix-sept' }, { darija: 'Tmaniaashar', ar: 'ثمانية عشر', fr: 'Dix-huit' }, { darija: 'Tisaaashar', ar: 'تسعة عشر', fr: 'Dix-neuf' }, { darija: 'Ashrin', ar: 'عشرين', fr: 'Vingt' }, { darija: 'Wahd wa ashrin', ar: 'واحد وعشرين', fr: 'Vingt-et-un' }, { darija: 'Tlatine', ar: 'ثلاثين', fr: 'Trente' }, { darija: 'Arbine', ar: 'أربعين', fr: 'Quarante' }, { darija: 'Khamsin', ar: 'خمسين', fr: 'Cinquante' }, { darija: 'Sittin', ar: 'ستين', fr: 'Soixante' }, { darija: 'Sabain', ar: 'سبعين', fr: 'Soixante-dix' }, { darija: 'Tamanin', ar: 'ثمانين', fr: 'Quatre-vingts' }, { darija: 'Tisain', ar: 'تسعين', fr: 'Quatre-vingt-dix' }, { darija: 'Miyya', ar: 'مية', fr: 'Cent' }, { darija: 'Miytain', ar: 'مائتين', fr: 'Deux-cents' }, { darija: 'Talatamiytain', ar: 'ثلاثمائة', fr: 'Trois-cents' }, { darija: 'Arbamiytain', ar: 'أربعمائة', fr: 'Quatre-cents' }, { darija: 'Khamsmiytain', ar: 'خمسمائة', fr: 'Cinq-cents' }, { darija: 'Sittamiytain', ar: 'ستمائة', fr: 'Six-cents' }, { darija: 'Sabaamiytain', ar: 'سبعمائة', fr: 'Sept-cents' }, { darija: 'Tmaniamiytain', ar: 'ثمانمائة', fr: 'Huit-cents' }, { darija: 'Tisaamiytain', ar: 'تسعمائة', fr: 'Neuf-cents' }, { darija: 'Alif', ar: 'ألف', fr: 'Mille' }, { darija: 'Alif wa whaad', ar: 'ألف وواحد', fr: 'Mille-un' }, { darija: 'Alif wa miyya', ar: 'ألف ومئة', fr: 'Mille-cent' }, { darija: 'Alfayn', ar: 'ألفين', fr: 'Deux-mille' }, { darija: 'Talata alaf', ar: 'ثلاثة آلاف', fr: 'Trois-mille' }, { darija: 'Arbaa alaf', ar: 'أربعة آلاف', fr: 'Quatre-mille' }, { darija: 'Khamsaa alaf', ar: 'خمسة آلاف', fr: 'Cinq-mille' }, { darija: 'Nuss', ar: 'نصف', fr: 'Demi' }, { darija: 'Tult', ar: 'ثلث', fr: 'Tiers' }, { darija: 'Rub', ar: 'ربع', fr: 'Quart' }, { darija: 'Plus', ar: 'زائد', fr: 'Plus' }, { darija: 'Minus', ar: 'ناقص', fr: 'Moins' }
+                { id: 2, emoji: '🔢', name: 'Khayman (1-5000)', vocab: [
+                    { darija: 'Wahad', ar: 'واحد', fr: 'Un' },
+                    { darija: 'Zouj', ar: 'اثنين', fr: 'Deux' },
+                    { darija: 'Talata', ar: 'ثلاثة', fr: 'Trois' },
+                    { darija: 'Rba', ar: 'أربعة', fr: 'Quatre' },
+                    { darija: 'Khemsa', ar: 'خمسة', fr: 'Cinq' },
+                    { darija: 'Stta', ar: 'ستة', fr: 'Six' },
+                    { darija: 'Sabaa', ar: 'سبعة', fr: 'Sept' },
+                    { darija: 'Tmaniya', ar: 'ثمانية', fr: 'Huit' },
+                    { darija: 'Tisaa', ar: 'تسعة', fr: 'Neuf' },
+                    { darija: 'Ashara', ar: 'عشرة', fr: 'Dix' },
+                    { darija: 'Heddash', ar: 'حداشر', fr: 'Onze' },
+                    { darija: 'Ithnaash', ar: 'اثناشر', fr: 'Douze' },
+                    { darija: 'Ashrin', ar: 'عشرين', fr: 'Vingt' },
+                    { darija: 'Tlatine', ar: 'ثلاثين', fr: 'Trente' },
+                    { darija: 'Arbine', ar: 'أربعين', fr: 'Quarante' },
+                    { darija: 'Khamsin', ar: 'خمسين', fr: 'Cinquante' },
+                    { darija: 'Sittin', ar: 'ستين', fr: 'Soixante' },
+                    { darija: 'Sabain', ar: 'سبعين', fr: 'Soixante-dix' },
+                    { darija: 'Tamanin', ar: 'ثمانين', fr: 'Quatre-vingts' },
+                    { darija: 'Tisain', ar: 'تسعين', fr: 'Quatre-vingt-dix' },
+                    { darija: 'Miyya', ar: 'مية', fr: 'Cent' },
+                    { darija: 'Miytain', ar: 'مئتين', fr: 'Deux cents' },
+                    { darija: 'Tlatamiyya', ar: 'ثلاثمائة', fr: 'Trois cents' },
+                    { darija: 'Arbamiyya', ar: 'أربعمائة', fr: 'Quatre cents' },
+                    { darija: 'Khamsamiyya', ar: 'خمسمائة', fr: 'Cinq cents' },
+                    { darija: 'Alif', ar: 'ألف', fr: 'Mille' },
+                    { darija: 'Alif u wahad', ar: 'ألف وواحد', fr: 'Mille et un' },
+                    { darija: 'Alfain', ar: 'ألفين', fr: 'Deux mille' },
+                    { darija: 'Talata alaf', ar: 'ثلاثة آلاف', fr: 'Trois mille' },
+                    { darija: 'Khamsata alaf', ar: 'خمسة آلاف', fr: 'Cinq mille' },
+                    { darija: 'Nuss', ar: 'نصف', fr: 'Demi' },
+                    { darija: 'Tult', ar: 'ثلث', fr: 'Tiers' },
+                    { darija: 'Rub', ar: 'ربع', fr: 'Quart' },
+                    { darija: 'Plus', ar: 'زائد', fr: 'Plus' },
+                    { darija: 'Naqs', ar: 'ناقص', fr: 'Moins' }
                 ] },
-                { id: 3, emoji: '👨‍👩‍👧', name: 'Famille', vocab: [
-                    { darija: 'Yemma', ar: 'أم', fr: 'Mere' }, { darija: 'Abbu', ar: 'أب', fr: 'Pere' }, { darija: 'Oukhti', ar: 'أخت', fr: 'Soeur' }, { darija: 'Khoui', ar: 'أخ', fr: 'Frere' }, { darija: 'Jdida', ar: 'جدة', fr: 'Grand-mere' }, { darija: 'Jdid', ar: 'جد', fr: 'Grand-pere' }, { darija: 'Bin', ar: 'ابن', fr: 'Fils' }, { darija: 'Bint', ar: 'ابنة', fr: 'Fille' }, { darija: 'Rajel', ar: 'رجل', fr: 'Mari' }, { darija: 'Mra', ar: 'امرأة', fr: 'Femme' }, { darija: 'Tfel', ar: 'طفل', fr: 'Enfant' }, { darija: 'Khal', ar: 'خال', fr: 'Oncle maternel' }, { darija: 'Amma', ar: 'عمة', fr: 'Tante paternelle' }, { darija: 'Ibjen', ar: 'عم', fr: 'Oncle paternel' }, { darija: 'Hlal', ar: 'الحلال', fr: 'Cousin' }, { darija: 'Skhab', ar: 'صحب', fr: 'Ami' }, { darija: 'Rif', ar: 'صديق', fr: 'Copain' }, { darija: 'Jiran', ar: 'جار', fr: 'Voisin' }, { darija: 'Tfel sghir', ar: 'طفل صغير', fr: 'Bebe' }, { darija: 'Tfel kabar', ar: 'طفل كبير', fr: 'Grand enfant' }, { darija: 'Khayya', ar: 'خالة', fr: 'Tante maternelle' }, { darija: 'Dar yemma', ar: 'دار أم', fr: 'Maison mere' }, { darija: 'Dar abbu', ar: 'دار أب', fr: 'Maison pere' }, { darija: 'Walid', ar: 'والد', fr: 'Parent' }, { darija: 'Walida', ar: 'والدة', fr: 'Parent femelle' }, { darija: 'Rajoula', ar: 'جنين', fr: 'Neveu' }, { darija: 'Mrayet', ar: 'قرية', fr: 'Nièce' }, { darija: 'Akhar', ar: 'أخر', fr: 'Dernier' }, { darija: 'Awwal', ar: 'أول', fr: 'Premier' }, { darija: 'Wassit', ar: 'وسط', fr: 'Moyen' }, { darija: 'Arsa', ar: 'عرس', fr: 'Mariage' }, { darija: 'Arouss', ar: 'عروس', fr: 'Mariee' }, { darija: 'Aares', ar: 'عريس', fr: 'Marie' }, { darija: 'Nafsa', ar: 'نفس', fr: 'Ame' }, { darija: 'Rab', ar: 'رب', fr: 'Maitre' }, { darija: 'Jadel', ar: 'جدل', fr: 'Querelle' }, { darija: 'Mohim', ar: 'مهم', fr: 'Important' }, { darija: 'Rajal', ar: 'رجال', fr: 'Hommes' }
+                { id: 3, emoji: '👨‍👩‍👧', name: 'Familla', vocab: [
+                    { darija: 'Mama', ar: 'ماما', fr: 'Mere' },
+                    { darija: 'Baba', ar: 'بابا', fr: 'Pere' },
+                    { darija: 'Oukhti', ar: 'أختي', fr: 'Ma soeur' },
+                    { darija: 'Khoui', ar: 'أخي', fr: 'Mon frere' },
+                    { darija: 'Jdida', ar: 'جدتي', fr: 'Ma grand-mere' },
+                    { darija: 'Jdid', ar: 'جدي', fr: 'Mon grand-pere' },
+                    { darija: 'Bin', ar: 'ابني', fr: 'Mon fils' },
+                    { darija: 'Binti', ar: 'ابنتي', fr: 'Ma fille' },
+                    { darija: 'Rajel', ar: 'رجل', fr: 'Mari' },
+                    { darija: 'Mra', ar: 'امرأة', fr: 'Femme' },
+                    { darija: 'Tfel', ar: 'طفل', fr: 'Enfant' },
+                    { darija: 'Tfel sghir', ar: 'طفل صغير', fr: 'Petit enfant' },
+                    { darija: 'Khal', ar: 'خالي', fr: 'Mon oncle maternel' },
+                    { darija: 'Khalt', ar: 'خالتي', fr: 'Ma tante maternelle' },
+                    { darija: 'Ammi', ar: 'عمي', fr: 'Mon oncle paternel' },
+                    { darija: 'Amma', ar: 'عمتي', fr: 'Ma tante paternelle' },
+                    { darija: 'Chusin', ar: 'ابن العم', fr: 'Cousin' },
+                    { darija: 'Chusina', ar: 'بنت العم', fr: 'Cousine' },
+                    { darija: 'Rajoula', ar: 'ابن أخي', fr: 'Mon neveu' },
+                    { darija: 'Rajoulti', ar: 'بنت أخي', fr: 'Ma nièce' },
+                    { darija: 'Jiran', ar: 'جار', fr: 'Voisin' },
+                    { darija: 'Jirana', ar: 'جارة', fr: 'Voisine' },
+                    { darija: 'Skhab', ar: 'صحاب', fr: 'Ami' },
+                    { darija: 'Skhaba', ar: 'صحابة', fr: 'Amie' },
+                    { darija: 'Rif', ar: 'صديق', fr: 'Copain' },
+                    { darija: 'Rifa', ar: 'صديقة', fr: 'Copine' },
+                    { darija: 'Dar yemma', ar: 'دار أمي', fr: 'Maison de ma mere' },
+                    { darija: 'Dar baba', ar: 'دار بابي', fr: 'Maison de mon pere' },
+                    { darija: 'Familla', ar: 'عائلة', fr: 'Famille' },
+                    { darija: 'Walid', ar: 'والد', fr: 'Parent' }
                 ] },
-                { id: 4, emoji: '🏠', name: 'Logement (50+ mots)', vocab: [
-                    { darija: 'Byt', ar: 'بيت', fr: 'Maison' }, { darija: 'Dar', ar: 'دار', fr: 'Demeure' }, { darija: 'Ghorfa', ar: 'غرفة', fr: 'Chambre' }, { darija: 'Matkh', ar: 'مطبخ', fr: 'Cuisine' }, { darija: 'Hammam', ar: 'حمام', fr: 'Salle bain' }, { darija: 'Sala', ar: 'صالة', fr: 'Salon' }, { darija: 'Bab', ar: 'باب', fr: 'Porte' }, { darija: 'Shbar', ar: 'نافذة', fr: 'Fenetre' }, { darija: 'Srir', ar: 'سرير', fr: 'Lit' }, { darija: 'Taula', ar: 'طاولة', fr: 'Table' }, { darija: 'Korsiya', ar: 'كرسي', fr: 'Chaise' }, { darija: 'Sofa', ar: 'أريكة', fr: 'Canape' }, { darija: 'Doulabat', ar: 'خزانة', fr: 'Armoire' }, { darija: 'Rrah', ar: 'طابق', fr: 'Etage' }, { darija: 'Chejraje', ar: 'مدفئة', fr: 'Chauffage' }, { darija: 'Miraya', ar: 'مرآة', fr: 'Miroir' }, { darija: 'Shetta', ar: 'شماعة', fr: 'Porte-manteau' }, { darija: 'Qandila', ar: 'قنديل', fr: 'Lampe' }, { darija: 'Skhab', ar: 'صخاب', fr: 'Escalier' }, { darija: 'Jniyet', ar: 'جنية', fr: 'Jardin' }, { darija: 'Stura', ar: 'ستارة', fr: 'Rideau' }, { darija: 'Farsh', ar: 'فرش', fr: 'Tapis' }, { darija: 'Essqaf', ar: 'السقف', fr: 'Plafond' }, { darija: 'Jdar', ar: 'جدار', fr: 'Mur' }, { darija: 'Ardia', ar: 'أرضية', fr: 'Sol' }, { darija: 'Tanour', ar: 'تنور', fr: 'Four' }, { darija: 'Khamara', ar: 'خمارة', fr: 'Evier' }, { darija: 'Barraka', ar: 'براقة', fr: 'Plaque' }, { darija: 'Thallaja', ar: 'ثلاجة', fr: 'Frigo' }, { darija: 'Wasala', ar: 'وسلة', fr: 'Panier' }, { darija: 'Kabarit', ar: 'كباريت', fr: 'Matches' }, { darija: 'Shalfa', ar: 'شالفة', fr: 'Etagere' }, { darija: 'Tasbih', ar: 'تصبيح', fr: 'Toilette' }, { darija: 'Dosh', ar: 'دش', fr: 'Douche' }, { darija: 'Babtou', ar: 'بانيو', fr: 'Baignoire' }, { darija: 'Kharaq', ar: 'خراق', fr: 'Linge' }, { darija: 'Saboun', ar: 'صابون', fr: 'Savon' }, { darija: 'Brosse', ar: 'فرشاة', fr: 'Brosse' }, { darija: 'Mesnana', ar: 'مسنانة', fr: 'Brosse dents' }, { darija: 'Bel', ar: 'بيل', fr: 'Pelle' }, { darija: 'Mansa', ar: 'منسة', fr: 'Balai' }, { darija: 'Derj', ar: 'درج', fr: 'Tiroir' }, { darija: 'Safra', ar: 'صفرة', fr: 'Plateau' }, { darija: 'Essif', ar: 'الصيف', fr: 'Ete' }, { darija: 'Shtiya', ar: 'الشتاء', fr: 'Hiver' }, { darija: 'Rbiah', ar: 'الربيع', fr: 'Printemps' }
+                { id: 4, emoji: '🏠', name: 'Dar (Maison)', vocab: [
+                    { darija: 'Dar', ar: 'دار', fr: 'Maison' },
+                    { darija: 'Bit', ar: 'بيت', fr: 'Maison/Chambre' },
+                    { darija: 'Ghorfa', ar: 'غرفة', fr: 'Chambre' },
+                    { darija: 'Ghorfa ntaa nwoom', ar: 'غرفة النوم', fr: 'Chambre a coucher' },
+                    { darija: 'Matkh', ar: 'مطبخ', fr: 'Cuisine' },
+                    { darija: 'Hammam', ar: 'حمام', fr: 'Salle de bain' },
+                    { darija: 'Salla', ar: 'صالة', fr: 'Salon' },
+                    { darija: 'Jdar', ar: 'جدار', fr: 'Mur' },
+                    { darija: 'Shbar', ar: 'شباك', fr: 'Fenetre' },
+                    { darija: 'Bab', ar: 'باب', fr: 'Porte' },
+                    { darija: 'Srir', ar: 'سرير', fr: 'Lit' },
+                    { darija: 'Taula', ar: 'طاولة', fr: 'Table' },
+                    { darija: 'Korsiya', ar: 'كرسي', fr: 'Chaise' },
+                    { darija: 'Qanba', ar: 'كنبة', fr: 'Canape' },
+                    { darija: 'Doulabat', ar: 'دولابة', fr: 'Armoire' },
+                    { darija: 'Rrah', ar: 'طابق', fr: 'Etage' },
+                    { darija: 'Skyej', ar: 'سخان', fr: 'Chauffage' },
+                    { darija: 'Miraya', ar: 'مرآة', fr: 'Miroir' },
+                    { darija: 'Qandil', ar: 'قنديل', fr: 'Lampe' },
+                    { darija: 'Skyaj', ar: 'درج', fr: 'Escalier' },
+                    { darija: 'Jiniha', ar: 'حديقة', fr: 'Jardin' },
+                    { darija: 'Setara', ar: 'ستارة', fr: 'Rideau' },
+                    { darija: 'Zarbia', ar: 'سجادة', fr: 'Tapis' },
+                    { darija: 'Sqqaf', ar: 'سقف', fr: 'Plafond' },
+                    { darija: 'Ardiya', ar: 'أرضية', fr: 'Sol' },
+                    { darija: 'Baraka', ar: 'براقة', fr: 'Plaque de cuisson' },
+                    { darija: 'Thalaja', ar: 'ثلاجة', fr: 'Frigidaire' },
+                    { darija: 'Fran', ar: 'فرن', fr: 'Four' },
+                    { darija: 'Sebba', ar: 'سباك', fr: 'Tuyau' },
+                    { darija: 'Khammara', ar: 'خمارة', fr: 'Evier' }
                 ] },
-                { id: 5, emoji: '🍲', name: 'Nourriture (50+ mots)', vocab: [
-                    { darija: 'Khbez', ar: 'خبز', fr: 'Pain' }, { darija: 'Shay', ar: 'شاي', fr: 'The' }, { darija: 'Qahwa', ar: 'قهوة', fr: 'Cafe' }, { darija: 'Lma', ar: 'ماء', fr: 'Eau' }, { darija: 'Hlib', ar: 'حليب', fr: 'Lait' }, { darija: 'Tajine', ar: 'طاجين', fr: 'Tajine' }, { darija: 'Couscous', ar: 'كسكس', fr: 'Couscous' }, { darija: 'Dajaj', ar: 'دجاج', fr: 'Poulet' }, { darija: 'Lham', ar: 'لحم', fr: 'Viande' }, { darija: 'Samak', ar: 'سمك', fr: 'Poisson' }, { darija: 'Jaj', ar: 'بيض', fr: 'Oeuf' }, { darija: 'Tamar', ar: 'تمر', fr: 'Datte' }, { darija: 'Zitoun', ar: 'زيتون', fr: 'Olive' }, { darija: 'Fromaj', ar: 'جبن', fr: 'Fromage' }, { darija: 'Jbna', ar: 'جبنة', fr: 'Fromage frais' }, { darija: 'Zahra', ar: 'زهرة', fr: 'Fleur' }, { darija: 'Flegel', ar: 'فلفل', fr: 'Poivre' }, { darija: 'Makla', ar: 'طعام', fr: 'Aliment' }, { darija: 'Skhina', ar: 'سخينة', fr: 'Soupe chaude' }, { darija: 'Shorba', ar: 'شرقة', fr: 'Bouillon' }, { darija: 'Bazin', ar: 'بزين', fr: 'Semoule' }, { darija: 'Flija', ar: 'فليجة', fr: 'Crepe' }, { darija: 'Rgaif', ar: 'رقايق', fr: 'Pate feuilletee' }, { darija: 'Mkate', ar: 'مقاطع', fr: 'Biscuit' }, { darija: 'Kaak', ar: 'كعك', fr: 'Gateau' }, { darija: 'Tappas', ar: 'تباس', fr: 'Appetitifs' }, { darija: 'Makroudh', ar: 'مقروض', fr: 'Gateau sucre' }, { darija: 'Griwech', ar: 'غريويش', fr: 'Pate frite' }, { darija: 'Sellou', ar: 'السلو', fr: 'Pate de miel' }, { darija: 'Chebakia', ar: 'شباكية', fr: 'Specialite sucree' }, { darija: 'Chorba', ar: 'شربة', fr: 'Soupe' }, { darija: 'Rechta', ar: 'رشتة', fr: 'Soupe pates' }, { darija: 'Harira', ar: 'حريرة', fr: 'Soupe ramadan' }, { darija: 'Salata', ar: 'سلطة', fr: 'Salade' }, { darija: 'Tomata', ar: 'طماطم', fr: 'Tomate' }, { darija: 'Khiyar', ar: 'خيار', fr: 'Concombre' }, { darija: 'Bassel', ar: 'بصل', fr: 'Oignon' }, { darija: 'Thoum', ar: 'ثوم', fr: 'Ail' }, { darija: 'Khass', ar: 'خص', fr: 'Laitue' }, { darija: 'Carot', ar: 'جزر', fr: 'Carotte' }, { darija: 'Batata', ar: 'بطاطة', fr: 'Pomme de terre' }, { darija: 'Batata hamra', ar: 'بطاطة حمراء', fr: 'Patate douce' }, { darija: 'Jaj mdekak', ar: 'بيض مسلوق', fr: 'Oeuf cuit' }, { darija: 'Jaj mhafruf', ar: 'بيض مخفوف', fr: 'Oeuf brouille' }, { darija: 'Shokolat', ar: 'شوكولا', fr: 'Chocolat' }, { darija: 'Sukkar', ar: 'سكر', fr: 'Sucre' }, { darija: 'Mel', ar: 'عسل', fr: 'Miel' }
+                { id: 5, emoji: '🍲', name: 'Makla (Nourriture)', vocab: [
+                    { darija: 'Khobza', ar: 'خبزة', fr: 'Pain' },
+                    { darija: 'Atay', ar: 'اتاي', fr: 'The' },
+                    { darija: 'Qahwa', ar: 'قهوة', fr: 'Cafe' },
+                    { darija: 'Lma', ar: 'ماء', fr: 'Eau' },
+                    { darija: 'Hlib', ar: 'حليب', fr: 'Lait' },
+                    { darija: 'Tajine', ar: 'طاجين', fr: 'Tajine' },
+                    { darija: 'Kusksi', ar: 'كسكسي', fr: 'Couscous' },
+                    { darija: 'Ddjaj', ar: 'دجاج', fr: 'Poulet' },
+                    { darija: 'Dlaa', ar: 'لحم', fr: 'Viande' },
+                    { darija: 'Hout', ar: 'سمك', fr: 'Poisson' },
+                    { darija: 'Byd', ar: 'بيض', fr: 'Oeuf' },
+                    { darija: 'Tamar', ar: 'تمر', fr: 'Datte' },
+                    { darija: 'Zaytoun', ar: 'زيتون', fr: 'Olive' },
+                    { darija: 'Jebna', ar: 'جبنة', fr: 'Fromage' },
+                    { darija: 'Zahra', ar: 'زهرة', fr: 'Fleur/Legume' },
+                    { darija: 'Flfel', ar: 'فلفل', fr: 'Poivre' },
+                    { darija: 'Chorba', ar: 'شوربة', fr: 'Soupe' },
+                    { darija: 'Bazine', ar: 'بازين', fr: 'Semoule' },
+                    { darija: 'Flija', ar: 'فليجة', fr: 'Crepe' },
+                    { darija: 'Kaak', ar: 'كعك', fr: 'Gateau' },
+                    { darija: 'Griwech', ar: 'غريويش', fr: 'Pate frite' },
+                    { darija: 'Makroudh', ar: 'مقروض', fr: 'Gateau sucre' },
+                    { darija: 'Chebakia', ar: 'شباكية', fr: 'Specialite sucree' },
+                    { darija: 'Mel', ar: 'عسل', fr: 'Miel' },
+                    { darija: 'Sukkar', ar: 'سكر', fr: 'Sucre' },
+                    { darija: 'Shokolat', ar: 'شوكولا', fr: 'Chocolat' },
+                    { darija: 'Marka', ar: 'مرقة', fr: 'Sauce' },
+                    { darija: 'Dija', ar: 'دهن', fr: 'Graisse' },
+                    { darija: 'Zeyt', ar: 'زيت', fr: 'Huile' },
+                    { darija: 'Thoum', ar: 'ثوم', fr: 'Ail' }
                 ] },
-                { id: 6, emoji: '👗', name: 'Vetements (40+ mots)', vocab: [
-                    { darija: 'Qmis', ar: 'قميص', fr: 'Chemise' }, { darija: 'Fstan', ar: 'فستان', fr: 'Robe' }, { darija: 'Blusa', ar: 'بنطال', fr: 'Pantalon' }, { darija: 'Hdaw', ar: 'حذاء', fr: 'Chaussure' }, { darija: 'Chelaba', ar: 'جلابة', fr: 'Djellaba' }, { darija: 'Hayk', ar: 'حايك', fr: 'Haik' }, { darija: 'Sokra', ar: 'نعال', fr: 'Pantoufles' }, { darija: 'Hsam', ar: 'حزام', fr: 'Ceinture' }, { darija: 'Libas', ar: 'لباس', fr: 'Vetement' }, { darija: 'Bonit', ar: 'قبعة', fr: 'Bonnet' }, { darija: 'Hijab', ar: 'حجاب', fr: 'Hijab' }, { darija: 'Mdilla', ar: 'معطف', fr: 'Manteau' }, { darija: 'Jiwab', ar: 'جوارب', fr: 'Chaussettes' }, { darija: 'Shirt', ar: 'قميص', fr: 'T-shirt' }, { darija: 'Jakt', ar: 'جاكيت', fr: 'Veste' }, { darija: 'Krawaatta', ar: 'ربطة عنق', fr: 'Cravate' }, { darija: 'Sok', ar: 'جراب', fr: 'Sac' }, { darija: 'Qandoura', ar: 'قندورة', fr: 'Robe traditionnelle' }, { darija: 'Mekhla', ar: 'مخيلة', fr: 'Jupe' }, { darija: 'Barnus', ar: 'برنس', fr: 'Burnous' }, { darija: 'Surwel', ar: 'سروال', fr: 'Pantalon large' }, { darija: 'Kamis', ar: 'كميس', fr: 'Chemise tunisienne' }, { darija: 'Jeans', ar: 'جينز', fr: 'Jean' }, { darija: 'Shorty', ar: 'شورت', fr: 'Short' }, { darija: 'Trikot', ar: 'تريكو', fr: 'Tricot' }, { darija: 'Sbaat', ar: 'أحذية', fr: 'Chaussures' }, { darija: 'Bokha', ar: 'بخة', fr: 'Babouche' }, { darija: 'Snedla', ar: 'صندل', fr: 'Sandale' }, { darija: 'Brwasha', ar: 'براشة', fr: 'Broche' }, { darija: 'Tabaka', ar: 'طبقة', fr: 'Couche' }, { darija: 'Fibula', ar: 'فيبولا', fr: 'Broche' }, { darija: 'Thob', ar: 'ثوب', fr: 'Habit' }, { darija: 'Gandoura', ar: 'قندورة', fr: 'Tunique' }, { darija: 'Sarouel', ar: 'سروال', fr: 'Pantalon sarouel' }, { darija: 'Foulard', ar: 'فولار', fr: 'Foulard' }, { darija: 'Chache', ar: 'شاشة', fr: 'Turban' }, { darija: 'Khymat', ar: 'خيمة', fr: 'Tente' }, { darija: 'Rida', ar: 'رداء', fr: 'Cape' }, { darija: 'Zouti', ar: 'زوتي', fr: 'Costume' }
+                { id: 6, emoji: '👗', name: 'Libas (Vetements)', vocab: [
+                    { darija: 'Qmis', ar: 'قميص', fr: 'Chemise' },
+                    { darija: 'Fustane', ar: 'فستان', fr: 'Robe' },
+                    { darija: 'Pantalon', ar: 'بنطال', fr: 'Pantalon' },
+                    { darija: 'Hdaw', ar: 'حذاء', fr: 'Chaussure' },
+                    { darija: 'Jalaba', ar: 'جلابة', fr: 'Djellaba' },
+                    { darija: 'Gandora', ar: 'قندورة', fr: 'Robe tunique' },
+                    { darija: 'Sarouel', ar: 'سروال', fr: 'Pantalon ample' },
+                    { darija: 'Burnous', ar: 'برنوس', fr: 'Burnous' },
+                    { darija: 'Hayak', ar: 'حايك', fr: 'Voile traditionnel' },
+                    { darija: 'Melaya', ar: 'ملاية', fr: 'Voile feminin' },
+                    { darija: 'Sokra', ar: 'صندل', fr: 'Sandale' },
+                    { darija: 'Hsam', ar: 'حزام', fr: 'Ceinture' },
+                    { darija: 'Jiwab', ar: 'جوارب', fr: 'Chaussettes' },
+                    { darija: 'Shirt', ar: 'قميص', fr: 'T-shirt' },
+                    { darija: 'Jakat', ar: 'جاكيت', fr: 'Veste' },
+                    { darija: 'Mdilla', ar: 'معطف', fr: 'Manteau' },
+                    { darija: 'Hijab', ar: 'حجاب', fr: 'Hijab' },
+                    { darija: 'Tabaka', ar: 'طبقة', fr: 'Couche' },
+                    { darija: 'Sok', ar: 'جراب', fr: 'Sac' },
+                    { darija: 'Bonit', ar: 'قبعة', fr: 'Bonnet' },
+                    { darija: 'Krawaatta', ar: 'ربطة عنق', fr: 'Cravate' },
+                    { darija: 'Shorty', ar: 'شورت', fr: 'Short' },
+                    { darija: 'Jean', ar: 'جينز', fr: 'Jean' },
+                    { darija: 'Foulard', ar: 'فولار', fr: 'Foulard' },
+                    { darija: 'Zitta', ar: 'زينة', fr: 'Bijou' },
+                    { darija: 'Brash', ar: 'براش', fr: 'Broche' },
+                    { darija: 'Sebta', ar: 'سبتة', fr: 'Sandalette' },
+                    { darija: 'Bokha', ar: 'بخة', fr: 'Pantoufle' },
+                    { darija: 'Libas skhun', ar: 'لباس سخن', fr: 'Vetement chaud' },
+                    { darija: 'Libas khfif', ar: 'لباس خفيف', fr: 'Vetement leger' }
                 ] }
             ],
             'Grammaire': [
-                { id: 11, emoji: '📖', name: 'Articles (30+ mots)', vocab: [
-                    { darija: 'Al', ar: 'ال', fr: 'Le/La' }, { darija: 'Had', ar: 'هاد', fr: 'Ce' }, { darija: 'Wa', ar: 'و', fr: 'Et' }, { darija: 'Min', ar: 'من', fr: 'De' }, { darija: 'Lil', ar: 'لل', fr: 'Au' }, { darija: 'Fi', ar: 'في', fr: 'Dans' }, { darija: 'Kan', ar: 'كان', fr: 'Etait' }, { darija: 'Gha', ar: 'غا', fr: 'Va' }, { darija: 'Kif', ar: 'كيف', fr: 'Comment' }, { darija: 'Walakinn', ar: 'ولكن', fr: 'Mais' }, { darija: 'Aw', ar: 'او', fr: 'Ou' }, { darija: 'Dak', ar: 'ذاك', fr: 'Celui' }, { darija: 'Hadi', ar: 'هاذي', fr: 'Celle' }, { darija: 'Kayn', ar: 'كاين', fr: 'Il y a' }, { darija: 'Mazal', ar: 'مازال', fr: 'Toujours' }, { darija: 'Bash', ar: 'باش', fr: 'Pour' }, { darija: 'Ashkan', ar: 'الآن', fr: 'Maintenant' }, { darija: 'Qadim', ar: 'قديم', fr: 'Ancien' }, { darija: 'Jdid', ar: 'جديد', fr: 'Nouveau' }, { darija: 'Rahuma', ar: 'راهما', fr: 'Actuellement' }, { darija: 'Haj', ar: 'هاج', fr: 'Ceci' }, { darija: 'Hadouk', ar: 'هاذوك', fr: 'Ceux-la' }, { darija: 'Hadak', ar: 'هاذاك', fr: 'Ce que' }, { darija: 'Hanna', ar: 'هنا', fr: 'Ici' }, { darija: 'Hunna', ar: 'هناك', fr: 'La-bas' }, { darija: 'Ajal', ar: 'أجل', fr: 'Donc' }, { darija: 'Ighanch', ar: 'إگان', fr: 'Si' }, { darija: 'Fayn', ar: 'فين', fr: 'Ou' }, { darija: 'Ashnoun', ar: 'أشنوا', fr: 'Quoi' }, { darija: 'Waesh', ar: 'واش', fr: 'Est-ce que' }
+                { id: 11, emoji: '📖', name: 'Mots (30+ Darija)', vocab: [
+                    { darija: 'Al', ar: 'ال', fr: 'Le/La' },
+                    { darija: 'Had', ar: 'هاد', fr: 'Ce' },
+                    { darija: 'Hadouk', ar: 'هاذوك', fr: 'Ceux-la' },
+                    { darija: 'Wa', ar: 'و', fr: 'Et' },
+                    { darija: 'Min', ar: 'من', fr: 'De' },
+                    { darija: 'Mtaa', ar: 'متاع', fr: 'De (possessif)' },
+                    { darija: 'Betaa', ar: 'بتاع', fr: 'De (possessif)' },
+                    { darija: 'Fi', ar: 'في', fr: 'Dans' },
+                    { darija: 'Faq', ar: 'فوق', fr: 'Sur/Au-dessus' },
+                    { darija: 'Taht', ar: 'تحت', fr: 'Sous' },
+                    { darija: 'Qoddam', ar: 'قدام', fr: 'Devant' },
+                    { darija: 'Wraha', ar: 'ورا', fr: 'Derriere' },
+                    { darija: 'Hanna', ar: 'هنا', fr: 'Ici' },
+                    { darija: 'Hunna', ar: 'هناك', fr: 'La-bas' },
+                    { darija: 'Fayn', ar: 'فين', fr: 'Ou' },
+                    { darija: 'Kifen', ar: 'كيفن', fr: 'Comment' },
+                    { darija: 'Ashnaw', ar: 'أشنو', fr: 'Quoi' },
+                    { darija: 'Shnu', ar: 'شنو', fr: 'Quoi' },
+                    { darija: 'Shan', ar: 'شان', fr: 'Qui' },
+                    { darija: 'Kayn', ar: 'كاين', fr: 'Il y a' },
+                    { darija: 'Mazal', ar: 'مازال', fr: 'Toujours' },
+                    { darija: 'Bashta', ar: 'بشتا', fr: 'Pour' },
+                    { darija: 'Kayn problem', ar: 'كاين مشكلة', fr: 'Y a un probleme' },
+                    { darija: 'Walakinn', ar: 'ولكن', fr: 'Mais' },
+                    { darija: 'Aw', ar: 'او', fr: 'Ou' },
+                    { darija: 'Qadim', ar: 'قديم', fr: 'Ancien' },
+                    { darija: 'Jdid', ar: 'جديد', fr: 'Nouveau' },
+                    { darija: 'Rahin', ar: 'راهن', fr: 'Actuellement' },
+                    { darija: 'Daba', ar: 'دابا', fr: 'Maintenant' },
+                    { darija: 'Qriba', ar: 'قريبا', fr: 'Bientot' }
                 ] },
-                { id: 12, emoji: '✏️', name: 'Adjectifs (40+ mots)', vocab: [
-                    { darija: 'Kabar', ar: 'كبير', fr: 'Grand' }, { darija: 'Sghir', ar: 'صغير', fr: 'Petit' }, { darija: 'Zwin', ar: 'جميل', fr: 'Beau' }, { darija: 'Qbih', ar: 'قبيح', fr: 'Laid' }, { darija: 'Ahmar', ar: 'أحمر', fr: 'Rouge' }, { darija: 'Azrag', ar: 'أزرق', fr: 'Bleu' }, { darija: 'Akhdar', ar: 'أخضر', fr: 'Vert' }, { darija: 'Asfar', ar: 'أصفر', fr: 'Jaune' }, { darija: 'Bayad', ar: 'أبيض', fr: 'Blanc' }, { darija: 'Iswid', ar: 'أسود', fr: 'Noir' }, { darija: 'Qawi', ar: 'قوي', fr: 'Fort' }, { darija: 'Daiif', ar: 'ضعيف', fr: 'Faible' }, { darija: 'Sskhun', ar: 'سخن', fr: 'Chaud' }, { darija: 'Ssqah', ar: 'بارد', fr: 'Froid' }, { darija: 'Twil', ar: 'طويل', fr: 'Long' }, { darija: 'Qsir', ar: 'قصير', fr: 'Court' }, { darija: 'Wasse', ar: 'واسع', fr: 'Large' }, { darija: 'Ddiq', ar: 'ضيق', fr: 'Etroit' }, { darija: 'Ghali', ar: 'غالي', fr: 'Cher' }, { darija: 'Rkhis', ar: 'رخيص', fr: 'Bon marche' }, { darija: 'Nakhif', ar: 'ناخف', fr: 'Leger' }, { darija: 'Tqil', ar: 'ثقيل', fr: 'Lourd' }, { darija: 'Ratti', ar: 'راطي', fr: 'Humide' }, { darija: 'Jaf', ar: 'جاف', fr: 'Sec' }, { darija: 'Jaj', ar: 'جاج', fr: 'Transparent' }, { darija: 'Ktim', ar: 'كتيم', fr: 'Opaque' }, { darija: 'Qassi', ar: 'قاصي', fr: 'Difficile' }, { darija: 'Sahel', ar: 'سهل', fr: 'Facile' }, { darija: 'Qassi nass', ar: 'قاصي ناس', fr: 'Rare' }, { darija: 'Aadi', ar: 'عادي', fr: 'Normal' }, { darija: 'Ghrib', ar: 'غريب', fr: 'Etrange' }, { darija: 'Tahlim', ar: 'تهليم', fr: 'Piquant' }, { darija: 'Helou', ar: 'حلو', fr: 'Sucre' }, { darija: 'Mrira', ar: 'مرير', fr: 'Amer' }, { darija: 'Hamda', ar: 'حامضة', fr: 'Acide' }, { darija: 'Mahly', ar: 'ماهلي', fr: 'Domestique' }, { darija: 'Washl', ar: 'وحشي', fr: 'Sauvage' }, { darija: 'Masyub', ar: 'مصيوب', fr: 'Correct' }, { darija: 'Ghlat', ar: 'غلط', fr: 'Faux' }
+                { id: 12, emoji: '✏️', name: 'Sifat (Adjectifs)', vocab: [
+                    { darija: 'Kabar', ar: 'كبير', fr: 'Grand' },
+                    { darija: 'Sghir', ar: 'صغير', fr: 'Petit' },
+                    { darija: 'Zwin', ar: 'جميل', fr: 'Beau' },
+                    { darija: 'Qbih', ar: 'قبيح', fr: 'Laid' },
+                    { darija: 'Ahmar', ar: 'أحمر', fr: 'Rouge' },
+                    { darija: 'Azraq', ar: 'أزرق', fr: 'Bleu' },
+                    { darija: 'Akhdar', ar: 'أخضر', fr: 'Vert' },
+                    { darija: 'Asfar', ar: 'أصفر', fr: 'Jaune' },
+                    { darija: 'Bayad', ar: 'أبيض', fr: 'Blanc' },
+                    { darija: 'Iswid', ar: 'أسود', fr: 'Noir' },
+                    { darija: 'Qawi', ar: 'قوي', fr: 'Fort' },
+                    { darija: 'Daiif', ar: 'ضعيف', fr: 'Faible' },
+                    { darija: 'Skhun', ar: 'سخن', fr: 'Chaud' },
+                    { darija: 'Brid', ar: 'بارد', fr: 'Froid' },
+                    { darija: 'Twil', ar: 'طويل', fr: 'Long' },
+                    { darija: 'Qsir', ar: 'قصير', fr: 'Court' },
+                    { darija: 'Wasse', ar: 'واسع', fr: 'Large' },
+                    { darija: 'Diq', ar: 'ضيق', fr: 'Etroit' },
+                    { darija: 'Ghali', ar: 'غالي', fr: 'Cher' },
+                    { darija: 'Rkhis', ar: 'رخيص', fr: 'Bon marche' },
+                    { darija: 'Nakhif', ar: 'ناخف', fr: 'Leger' },
+                    { darija: 'Tqil', ar: 'ثقيل', fr: 'Lourd' },
+                    { darija: 'Ratti', ar: 'راطي', fr: 'Humide' },
+                    { darija: 'Jaf', ar: 'جاف', fr: 'Sec' },
+                    { darija: 'Sahel', ar: 'سهل', fr: 'Facile' },
+                    { darija: 'Aassib', ar: 'قاسي', fr: 'Difficile' },
+                    { darija: 'Raqqasse', ar: 'رقيق', fr: 'Fin' },
+                    { darija: 'Ghlib', ar: 'غليظ', fr: 'Epais' },
+                    { darija: 'Hadri', ar: 'حضري', fr: 'Urbain' },
+                    { darija: 'Rifi', ar: 'ريفي', fr: 'Rural' }
                 ] },
-                { id: 13, emoji: '👆', name: 'Pronoms (40+ mots)', vocab: [
-                    { darija: 'Ana', ar: 'أنا', fr: 'Je' }, { darija: 'Nta', ar: 'أنت', fr: 'Tu' }, { darija: 'Huwa', ar: 'هو', fr: 'Il' }, { darija: 'Hiya', ar: 'هي', fr: 'Elle' }, { darija: 'Nnas', ar: 'الناس', fr: 'Nous' }, { darija: 'Ntuma', ar: 'أنتم', fr: 'Vous' }, { darija: 'Huma', ar: 'هما', fr: 'Ils' }, { darija: 'Ghandi', ar: 'عندي', fr: 'Jai' }, { darija: 'Ghandak', ar: 'عندك', fr: 'Tas' }, { darija: 'Ghandah', ar: 'عنده', fr: 'Ila' }, { darija: 'Khassni', ar: 'خاصني', fr: 'J ai besoin' }, { darija: 'Khassk', ar: 'خاصك', fr: 'Tu dois' }, { darija: 'Khassah', ar: 'خاصه', fr: 'Il doit' }, { darija: 'Fhemtah', ar: 'فهمتاه', fr: 'Il a compris' }, { darija: 'Walah', ar: 'ولاه', fr: 'Je jure' }, { darija: 'Bslahtek', ar: 'بصلاحتك', fr: 'C est bon pour toi' }, { darija: 'Bslahna', ar: 'بصلاحنا', fr: 'C est bon pour nous' }, { darija: 'Niya', ar: 'ني', fr: 'Me' }, { darija: 'Lik', ar: 'ليك', fr: 'Te' }, { darija: 'Lih', ar: 'ليه', fr: 'Lui' }, { darija: 'Lihaa', ar: 'ليهم', fr: 'Leur' }, { darija: 'Rah', ar: 'راح', fr: 'Est alle' }, { darija: 'Rahi', ar: 'راهي', fr: 'Elle est allee' }, { darija: 'Rajin', ar: 'راجين', fr: 'On va' }, { darija: 'Ghalti', ar: 'غالط', fr: 'Je me trompe' }, { darija: 'Ghatni', ar: 'غاتني', fr: 'Cela me gene' }, { darija: 'Walja', ar: 'والجا', fr: 'Juste' }, { darija: 'Hakka', ar: 'هاكا', fr: 'Comme ca' }, { darija: 'Hadhak', ar: 'هاذاك', fr: 'Ce' }, { darija: 'Hadak tmen', ar: 'هاذاك ثمن', fr: 'Ce prix' }, { darija: 'Twa', ar: 'توة', fr: 'Maintenant' }, { darija: 'Daba', ar: 'دابا', fr: 'Maintenant' }, { darija: 'Qriba', ar: 'قريبا', fr: 'Bientot' }, { darija: 'Qtaa', ar: 'قطع', fr: 'Pieces' }, { darija: 'Shi', ar: 'شي', fr: 'Chose' }, { darija: 'Shi wahed', ar: 'شي واحد', fr: 'Une seule chose' }, { darija: 'Shi khra', ar: 'شي خرى', fr: 'Une autre chose' }, { darija: 'Kol shi', ar: 'كل شي', fr: 'Tout' }, { darija: 'Hadya shi', ar: 'هاذي شي', fr: 'C est quelque chose' }
+                { id: 13, emoji: '👆', name: 'Drari (Pronoms)', vocab: [
+                    { darija: 'Ana', ar: 'أنا', fr: 'Je' },
+                    { darija: 'Nta', ar: 'أنت', fr: 'Tu (singulier)' },
+                    { darija: 'Ntiya', ar: 'أنتي', fr: 'Tu (feminin)' },
+                    { darija: 'Huwa', ar: 'هو', fr: 'Il' },
+                    { darija: 'Hiya', ar: 'هي', fr: 'Elle' },
+                    { darija: 'Hna', ar: 'احنا', fr: 'Nous' },
+                    { darija: 'Ntuma', ar: 'أنتم', fr: 'Vous (pluriel)' },
+                    { darija: 'Huma', ar: 'هما', fr: 'Ils/Elles' },
+                    { darija: 'Ghandi', ar: 'عندي', fr: 'J ai' },
+                    { darija: 'Ghandak', ar: 'عندك', fr: 'Tu as' },
+                    { darija: 'Ghandu', ar: 'عنده', fr: 'Il a' },
+                    { darija: 'Ghandha', ar: 'عندها', fr: 'Elle a' },
+                    { darija: 'Ghandna', ar: 'عندنا', fr: 'Nous avons' },
+                    { darija: 'Ghandkum', ar: 'عندكم', fr: 'Vous avez' },
+                    { darija: 'Ghandhum', ar: 'عندهم', fr: 'Ils ont' },
+                    { darija: 'Khessni', ar: 'خاصني', fr: 'Je dois' },
+                    { darija: 'Khessak', ar: 'خاصك', fr: 'Tu dois' },
+                    { darija: 'Khessah', ar: 'خاصه', fr: 'Il doit' },
+                    { darija: 'Khessna', ar: 'خاصنا', fr: 'Nous devons' },
+                    { darija: 'Khassku', ar: 'خاصكم', fr: 'Vous devez' },
+                    { darija: 'Khesshum', ar: 'خاصهم', fr: 'Ils doivent' },
+                    { darija: 'Niya', ar: 'ني', fr: 'Me' },
+                    { darija: 'Lik', ar: 'ليك', fr: 'Te' },
+                    { darija: 'Lih', ar: 'ليه', fr: 'Lui' },
+                    { darija: 'Lihaa', ar: 'ليها', fr: 'Elle' },
+                    { darija: 'Lina', ar: 'لينا', fr: 'Nous' },
+                    { darija: 'Likum', ar: 'ليكم', fr: 'Vous' },
+                    { darija: 'Lihum', ar: 'ليهم', fr: 'Leur' },
+                    { darija: 'Dak', ar: 'ذاك', fr: 'Celui' },
+                    { darija: 'Dika', ar: 'ديك', fr: 'Celui-ci' }
                 ] }
             ],
-            'Vocabulaire': [
-                { id: 14, emoji: '⚕️', name: 'Sante (50+ mots)', vocab: [
-                    { darija: 'Tbib', ar: 'طبيب', fr: 'Medecin' }, { darija: 'Mrad', ar: 'مرض', fr: 'Maladie' }, { darija: 'Rass', ar: 'رأس', fr: 'Tete' }, { darija: 'Ein', ar: 'عين', fr: 'Oeil' }, { darija: 'Belly', ar: 'بطن', fr: 'Ventre' }, { darija: 'Rij', ar: 'رجل', fr: 'Jambe' }, { darija: 'Yed', ar: 'يد', fr: 'Main' }, { darija: 'Qalb', ar: 'قلب', fr: 'Coeur' }, { darija: 'Jrah', ar: 'جرح', fr: 'Blessure' }, { darija: 'Asalah', ar: 'عسل', fr: 'Miel' }, { darija: 'Sbaghi', ar: 'صبغة', fr: 'Medicament' }, { darija: 'Shfara', ar: 'شفارة', fr: 'Infirmier' }, { darija: 'Shfa', ar: 'شفاء', fr: 'Guerison' }, { darija: 'Smaa', ar: 'سمع', fr: 'Audition' }, { darija: 'Bsar', ar: 'بصر', fr: 'Vue' }, { darija: 'Jor', ar: 'جهاز', fr: 'Appareil' }, { darija: 'Hssas', ar: 'حساس', fr: 'Sensible' }, { darija: 'Matjr', ar: 'معجر', fr: 'Fatigue' }, { darija: 'Rah', ar: 'راح', fr: 'Partis' }, { darija: 'Saha', ar: 'صحة', fr: 'Sante' }, { darija: 'Khomra', ar: 'خمرة', fr: 'Fievre' }, { darija: 'Khal', ar: 'خال', fr: 'Vide' }, { darija: 'Kachla', ar: 'كحلة', fr: 'Toux' }, { darija: 'Saaaal', ar: 'سعال', fr: 'Toux' }, { darija: 'Faraja', ar: 'فراج', fr: 'Soulagement' }, { darija: 'Jerah', ar: 'جراح', fr: 'Chirurgien' }, { darija: 'Labratwar', ar: 'لابراتوار', fr: 'Labo' }, { darija: 'Bouliza', ar: 'بوليزة', fr: 'Ordonnance' }, { darija: 'Doula', ar: 'دواء', fr: 'Medicament' }, { darija: 'Tablet', ar: 'تابليت', fr: 'Comprime' }, { darija: 'Hbuub', ar: 'حبوب', fr: 'Pilules' }, { darija: 'Ashib', ar: 'عشيب', fr: 'Sirop' }, { darija: 'Mazif', ar: 'مزيف', fr: 'Faux' }, { darija: 'Sehha', ar: 'صحة', fr: 'Bien etre' }, { darija: 'Khobz', ar: 'خبز', fr: 'Nutrition' }, { darija: 'Riyadha', ar: 'رياضة', fr: 'Exercise' }, { darija: 'Namah', ar: 'نوم', fr: 'Sommeil' }, { darija: 'Laah', ar: 'لاح', fr: 'Brillant' }, { darija: 'Qadh', ar: 'قاض', fr: 'Juge' }, { darija: 'Jism', ar: 'جسم', fr: 'Corps' }, { darija: 'Ruh', ar: 'روح', fr: 'Esprit' }, { darija: 'Khatar', ar: 'خطر', fr: 'Danger' }, { darija: 'Amn', ar: 'أمن', fr: 'Securite' }, { darija: 'Sakkat', ar: 'سقط', fr: 'Chute' }, { darija: 'Jmoud', ar: 'جمود', fr: 'Gel' }, { darija: 'Broud', ar: 'برود', fr: 'Froid excessif' }, { darija: 'Khart', ar: 'خرط', fr: 'Entorse' }, { darija: 'Snoun', ar: 'أسنان', fr: 'Dents' }
+            'Professionnel': [
+                { id: 14, emoji: '⚕️', name: 'Saha (Sante)', vocab: [
+                    { darija: 'Tbib', ar: 'طبيب', fr: 'Medecin' },
+                    { darija: 'Mrad', ar: 'مرض', fr: 'Maladie' },
+                    { darija: 'Rass', ar: 'رأس', fr: 'Tete' },
+                    { darija: 'Ein', ar: 'عين', fr: 'Oeil' },
+                    { darija: 'Belly', ar: 'بطن', fr: 'Ventre' },
+                    { darija: 'Rij', ar: 'رجل', fr: 'Jambe' },
+                    { darija: 'Yed', ar: 'يد', fr: 'Main' },
+                    { darija: 'Qalb', ar: 'قلب', fr: 'Coeur' },
+                    { darija: 'Snun', ar: 'أسنان', fr: 'Dents' },
+                    { darija: 'Suq', ar: 'سعال', fr: 'Toux' },
+                    { darija: 'Khomra', ar: 'حمى', fr: 'Fievre' },
+                    { darija: 'Jrah', ar: 'جرح', fr: 'Blessure' },
+                    { darija: 'Doula', ar: 'دواء', fr: 'Medicament' },
+                    { darija: 'Tablet', ar: 'قرص', fr: 'Comprime' },
+                    { darija: 'Hbuub', ar: 'حبوب', fr: 'Pilules' },
+                    { darija: 'Ashib', ar: 'شراب', fr: 'Sirop' },
+                    { darija: 'Mel', ar: 'عسل', fr: 'Miel (medicinal)' },
+                    { darija: 'Shfa', ar: 'شفاء', fr: 'Guerison' },
+                    { darija: 'Santé', ar: 'صحة', fr: 'Sante' },
+                    { darija: 'Jism', ar: 'جسم', fr: 'Corps' },
+                    { darija: 'Smaa', ar: 'سمع', fr: 'Ouie' },
+                    { darija: 'Bsar', ar: 'بصر', fr: 'Vue' },
+                    { darija: 'Shimm', ar: 'شم', fr: 'Odorat' },
+                    { darija: 'Dam', ar: 'دم', fr: 'Sang' },
+                    { darija: 'Matjr', ar: 'تعب', fr: 'Fatigue' },
+                    { darija: 'Nwoom', ar: 'نوم', fr: 'Sommeil' },
+                    { darija: 'Awf', ar: 'عطش', fr: 'Soif' },
+                    { darija: 'Jua', ar: 'جوع', fr: 'Faim' },
+                    { darija: 'Rih', ar: 'ريح', fr: 'Gaz/Vent' },
+                    { darija: 'Masah', ar: 'مساح', fr: 'Aide-soignant' }
                 ] },
-                { id: 15, emoji: '💼', name: 'Travail (50+ mots)', vocab: [
-                    { darija: 'Moalem', ar: 'معلم', fr: 'Professeur' }, { darija: 'Amal', ar: 'عمل', fr: 'Travail' }, { darija: 'Hadra', ar: 'وظيفة', fr: 'Emploi' }, { darija: 'Boss', ar: 'مدير', fr: 'Chef' }, { darija: 'Snaiya', ar: 'صناعة', fr: 'Industrie' }, { darija: 'Jaja', ar: 'أجر', fr: 'Salaire' }, { darija: 'Shrek', ar: 'شريك', fr: 'Associe' }, { darija: 'Taqrir', ar: 'تقرير', fr: 'Rapport' }, { darija: 'Ijtimaah', ar: 'اجتماع', fr: 'Reunion' }, { darija: 'Projit', ar: 'مشروع', fr: 'Projet' }, { darija: 'Waqa', ar: 'وقت', fr: 'Temps' }, { darija: 'Jdwal', ar: 'جدول', fr: 'Calendrier' }, { darija: 'Office', ar: 'مكتب', fr: 'Bureau' }, { darija: 'Machana', ar: 'مهنة', fr: 'Metier' }, { darija: 'Kanat', ar: 'خبرة', fr: 'Experience' }, { darija: 'Diraaha', ar: 'دراهم', fr: 'Argent' }, { darija: 'Sikil', ar: 'سيكل', fr: 'Horaire' }, { darija: 'Prem', ar: 'علاوة', fr: 'Prime' }, { darija: 'Kitab', ar: 'كتاب', fr: 'Document' }, { darija: 'Sertifikat', ar: 'شهادة', fr: 'Certificat' }, { darija: 'Khdem', ar: 'خدم', fr: 'Servir' }, { darija: 'Strattiji', ar: 'إستراتيجية', fr: 'Strategie' }, { darija: 'Tahaluj', ar: 'تحالج', fr: 'Gestion' }, { darija: 'Tawzif', ar: 'توظيف', fr: 'Recrutement' }, { darija: 'Tarqia', ar: 'ترقية', fr: 'Promotion' }, { darija: 'Istiqala', ar: 'استقالة', fr: 'Demission' }, { darija: 'Tawattur', ar: 'توترر', fr: 'Stress' }, { darija: 'Rafaka', ar: 'رفاقة', fr: 'Collegues' }, { darija: 'Khadma', ar: 'خدمة', fr: 'Service' }, { darija: 'Itqan', ar: 'إتقان', fr: 'Excellence' }, { darija: 'Taatir', ar: 'تأثير', fr: 'Impact' }, { darija: 'Tanaffos', ar: 'تنفس', fr: 'Respiration' }, { darija: 'Tawfiq', ar: 'توفيق', fr: 'Accord' }, { darija: 'Hazz', ar: 'حظ', fr: 'Chance' }, { darija: 'Khassara', ar: 'خسارة', fr: 'Perte' }, { darija: 'Ribh', ar: 'ربح', fr: 'Profit' }, { darija: 'Taghir', ar: 'تغيير', fr: 'Changement' }, { darija: 'Tataour', ar: 'تطور', fr: 'Evolution' }, { darija: 'Ihtisab', ar: 'احتساب', fr: 'Compte' }, { darija: 'Barah', ar: 'براح', fr: 'Dehors' }, { darija: 'Dakhil', ar: 'داخل', fr: 'Interieur' }, { darija: 'Tabtir', ar: 'تبتير', fr: 'Commencer' }, { darija: 'Khatam', ar: 'خاتم', fr: 'Fin' }, { darija: 'Taslim', ar: 'تسليم', fr: 'Livraison' }, { darija: 'Tasadul', ar: 'تصادل', fr: 'Echange' }, { darija: 'Tanassaq', ar: 'تناسق', fr: 'Coordination' }, { darija: 'Tahkam', ar: 'تحكم', fr: 'Controle' }
+                { id: 15, emoji: '💼', name: 'Khdem (Travail)', vocab: [
+                    { darija: 'Moalem', ar: 'معلم', fr: 'Professeur' },
+                    { darija: 'Travail', ar: 'خدم', fr: 'Travail' },
+                    { darija: 'Hadra', ar: 'وظيفة', fr: 'Emploi' },
+                    { darija: 'Boss', ar: 'مدير', fr: 'Chef' },
+                    { darija: 'Shrek', ar: 'شريك', fr: 'Associe' },
+                    { darija: 'Khdemti', ar: 'وظيفتي', fr: 'Mon travail' },
+                    { darija: 'Bureau', ar: 'مكتب', fr: 'Bureau' },
+                    { darija: 'Usina', ar: 'مصنع', fr: 'Usine' },
+                    { darija: 'Dukan', ar: 'دكان', fr: 'Magasin' },
+                    { darija: 'Jiraj', ar: 'عيادة', fr: 'Cabinet' },
+                    { darija: 'Skola', ar: 'مدرسة', fr: 'Ecole' },
+                    { darija: 'Jaja', ar: 'أجرة', fr: 'Salaire' },
+                    { darija: 'Taqrir', ar: 'تقرير', fr: 'Rapport' },
+                    { darija: 'Ijtimaa', ar: 'اجتماع', fr: 'Reunion' },
+                    { darija: 'Projit', ar: 'مشروع', fr: 'Projet' },
+                    { darija: 'Waqa', ar: 'وقت', fr: 'Temps' },
+                    { darija: 'Saa', ar: 'ساعة', fr: 'Heure' },
+                    { darija: 'Jdwal', ar: 'جدول', fr: 'Calendrier' },
+                    { darija: 'Machana', ar: 'مهنة', fr: 'Metier' },
+                    { darija: 'Kanat', ar: 'خبرة', fr: 'Experience' },
+                    { darija: 'Diraaha', ar: 'دراهم', fr: 'Argent' },
+                    { darija: 'Prime', ar: 'علاوة', fr: 'Prime' },
+                    { darija: 'Kitab', ar: 'كتاب', fr: 'Document' },
+                    { darija: 'Sertifikat', ar: 'شهادة', fr: 'Certificat' },
+                    { darija: 'Khdem harah', ar: 'خدمة حرة', fr: 'Travail independant' },
+                    { darija: 'Nqaz', ar: 'إجازة', fr: 'Conge' },
+                    { darija: 'Tarajib', ar: 'تدريب', fr: 'Formation' },
+                    { darija: 'Tawazon', ar: 'توازن', fr: 'Equilibre' },
+                    { darija: 'Takhetta', ar: 'تخطيط', fr: 'Planification' },
+                    { darija: 'Tanfidh', ar: 'تنفيذ', fr: 'Execution' }
                 ] },
-                { id: 16, emoji: '📚', name: 'Etudes (50+ mots)', vocab: [
-                    { darija: 'Skola', ar: 'مدرسة', fr: 'Ecole' }, { darija: 'Taleb', ar: 'طالب', fr: 'Etudiant' }, { darija: 'Imtihan', ar: 'امتحان', fr: 'Examen' }, { darija: 'Kahar', ar: 'كراس', fr: 'Cahier' }, { darija: 'Qalam', ar: 'قلم', fr: 'Stylo' }, { darija: 'Dar', ar: 'درس', fr: 'Lecon' }, { darija: 'Tadris', ar: 'تدريس', fr: 'Enseignement' }, { darija: 'Marha', ar: 'درجة', fr: 'Note' }, { darija: 'Mumtaz', ar: 'ممتاز', fr: 'Excellent' }, { darija: 'Jayyid', ar: 'جيد', fr: 'Bon' }, { darija: 'Waste', ar: 'ضعيف', fr: 'Faible' }, { darija: 'Tabard', ar: 'تبادل', fr: 'Echange' }, { darija: 'Libro', ar: 'كتاب مدرسي', fr: 'Manuel' }, { darija: 'Classe', ar: 'فصل', fr: 'Classe' }, { darija: 'Madaa', ar: 'مادة', fr: 'Matiere' }, { darija: 'Fahem', ar: 'فهم', fr: 'Comprehension' }, { darija: 'Akher', ar: 'آخر', fr: 'Dernier' }, { darija: 'Awwal', ar: 'أول', fr: 'Premier' }, { darija: 'Wassit', ar: 'وسط', fr: 'Moyen' }, { darija: 'Sana', ar: 'سنة', fr: 'Annee' }, { darija: 'Dirasah', ar: 'دراسة', fr: 'Etude' }, { darija: 'Buhuth', ar: 'بحث', fr: 'Recherche' }, { darija: 'Tawassul', ar: 'توسل', fr: 'Imploration' }, { darija: 'Tahlil', ar: 'تحليل', fr: 'Analyse' }, { darija: 'Tartib', ar: 'ترتيب', fr: 'Organisation' }, { darija: 'Natij', ar: 'نتيجة', fr: 'Resultat' }, { darija: 'Safqa', ar: 'صفقة', fr: 'Accord' }, { darija: 'Tahqiq', ar: 'تحقيق', fr: 'Verification' }, { darija: 'Tathbiq', ar: 'تطبيق', fr: 'Application' }, { darija: 'Tatbir', ar: 'تأثير', fr: 'Expression' }, { darija: 'Tajriba', ar: 'تجربة', fr: 'Experiment' }, { darija: 'Talaqqin', ar: 'تلقين', fr: 'Dictee' }, { darija: 'Tabah', ar: 'طبع', fr: 'Impression' }, { darija: 'Majal', ar: 'مجال', fr: 'Domaine' }, { darija: 'Makhraj', ar: 'مخرج', fr: 'Sortie' }, { darija: 'Dakhal', ar: 'دخال', fr: 'Entree' }, { darija: 'Taraf', ar: 'طرف', fr: 'Partie' }, { darija: 'Qawaid', ar: 'قواعد', fr: 'Regles' }, { darija: 'Talimih', ar: 'تلميح', fr: 'Indice' }, { darija: 'Tahrir', ar: 'تحرير', fr: 'Redaction' }, { darija: 'Tarajim', ar: 'تراجم', fr: 'Biographies' }, { darija: 'Tasafuh', ar: 'تصفح', fr: 'Parcours' }, { darija: 'Hafz', ar: 'حفظ', fr: 'Memoire' }, { darija: 'Tilmidhah', ar: 'تلميذة', fr: 'Etudiante' }, { darija: 'Mu allim', ar: 'معلم', fr: 'Educateur' }, { darija: 'Ihtibaraat', ar: 'اختبارات', fr: 'Tests' }, { darija: 'Suaal', ar: 'سؤال', fr: 'Question' }, { darija: 'Jawab', ar: 'جواب', fr: 'Reponse' }
-                ] }
-            ],
-            'Competences': [
-                { id: 17, emoji: '🎤', name: 'Prononciation (40+ mots)', vocab: [
-                    { darija: 'Ntaqa', ar: 'نطق', fr: 'Prononciation' }, { darija: 'Sawt', ar: 'صوت', fr: 'Son' }, { darija: 'Lsan', ar: 'لسان', fr: 'Langue' }, { darija: 'Kalm', ar: 'كلام', fr: 'Parole' }, { darija: 'Tkhattaa', ar: 'تخطأ', fr: 'Erreur' }, { darija: 'Zwin', ar: 'جميل', fr: 'Beau' }, { darija: 'Qaasi', ar: 'قاسي', fr: 'Difficile' }, { darija: 'Sahel', ar: 'سهل', fr: 'Facile' }, { darija: 'Qawil', ar: 'قول', fr: 'Dire' }, { darija: 'Istmaah', ar: 'استماع', fr: 'Ecoute' }, { darija: 'Nqul', ar: 'نقول', fr: 'Disons' }, { darija: 'Tsamaa', ar: 'تسمع', fr: 'Tu ecoutes' }, { darija: 'Tkellam', ar: 'تكلم', fr: 'Parler' }, { darija: 'Karahum', ar: 'كراهية', fr: 'Haine' }, { darija: 'Hawwel', ar: 'حول', fr: 'Autour' }, { darija: 'Tlab', ar: 'طلب', fr: 'Demande' }, { darija: 'Njib', ar: 'أجاب', fr: 'Repond' }, { darija: 'Skil', ar: 'شكل', fr: 'Forme' }, { darija: 'Mohtaram', ar: 'محترم', fr: 'Respecte' }, { darija: 'Fhim', ar: 'فهم', fr: 'Comprendre' }, { darija: 'Tadjid', ar: 'تجديد', fr: 'Repetition' }, { darija: 'Tabbassut', ar: 'تبصيص', fr: 'Accent' }, { darija: 'Tarhim', ar: 'ترحيم', fr: 'Modulation' }, { darija: 'Taqdim', ar: 'تقديم', fr: 'Presentation' }, { darija: 'Tahfif', ar: 'تخفيف', fr: 'Alleger' }, { darija: 'Tathqil', ar: 'تثقيل', fr: 'Appuyer' }, { darija: 'Takhfif', ar: 'تخفيف', fr: 'Reduction' }, { darija: 'Tawhih', ar: 'تنويه', fr: 'Intonation' }, { darija: 'Tasbih', ar: 'تصريح', fr: 'Articulation' }, { darija: 'Tahwil', ar: 'تحويل', fr: 'Transformation' }, { darija: 'Tasrif', ar: 'تصريف', fr: 'Conjugaison' }, { darija: 'Qiraah', ar: 'قراءة', fr: 'Lecture' }, { darija: 'Khibra', ar: 'خبرة', fr: 'Experience' }, { darija: 'Mahara', ar: 'مهارة', fr: 'Competence' }, { darija: 'Qudrah', ar: 'قدرة', fr: 'Capacite' }, { darija: 'Istidad', ar: 'استعداد', fr: 'Disposition' }, { darija: 'Riyadah', ar: 'رياضة', fr: 'Pratique' }, { darija: 'Tamrina', ar: 'تمرين', fr: 'Exercice' }, { darija: 'Tasshaul', ar: 'تشاؤل', fr: 'Interrogation' }, { darija: 'Tatassum', ar: 'تتسم', fr: 'Caracterise' }
-                ] },
-                { id: 18, emoji: '💬', name: 'Conversation (50+ mots)', vocab: [
-                    { darija: 'Hdra', ar: 'حديث', fr: 'Conversation' }, { darija: 'Tkellam', ar: 'تكلم', fr: 'Parler' }, { darija: 'Stmaa', ar: 'استمع', fr: 'Ecouter' }, { darija: 'Sqoula', ar: 'قول', fr: 'Dire' }, { darija: 'Tkhbir', ar: 'اخبر', fr: 'Informer' }, { darija: 'Swaal', ar: 'سؤال', fr: 'Question' }, { darija: 'Jib', ar: 'جواب', fr: 'Reponse' }, { darija: 'Fassal', ar: 'فصل', fr: 'Expliquer' }, { darija: 'Fhim', ar: 'فهم', fr: 'Comprendre' }, { darija: 'Stfsarsh', ar: 'استفسر', fr: 'Demander' }, { darija: 'Jzab', ar: 'أجاب', fr: 'Repondre' }, { darija: 'Wakil', ar: 'قول', fr: 'Il dit' }, { darija: 'Kalt', ar: 'قلت', fr: 'J ai dit' }, { darija: 'Kalu', ar: 'قالوا', fr: 'Ils ont dit' }, { darija: 'Tkal', ar: 'تقول', fr: 'Tu dis' }, { darija: 'Raah', ar: 'راح', fr: 'Est alle' }, { darija: 'Rejaa', ar: 'رجع', fr: 'Revenu' }, { darija: 'Gal', ar: 'قال', fr: 'Il a dit' }, { darija: 'Gala', ar: 'قالت', fr: 'Elle a dit' }, { darija: 'Lbit', ar: 'ليبت', fr: 'Il a passe la nuit' }, { darija: 'Khalas', ar: 'خلاص', fr: 'Fini' }, { darija: 'Basah', ar: 'بساح', fr: 'Simplement' }, { darija: 'Haj', ar: 'هاج', fr: 'Ceci' }, { darija: 'Hadouk', ar: 'هاذوك', fr: 'Ceux-la' }, { darija: 'Henna', ar: 'هنا', fr: 'Ici' }, { darija: 'Honnak', ar: 'هناك', fr: 'La-bas' }, { darija: 'Hnaa', ar: 'هنـــا', fr: 'Ici meme' }, { darija: 'Fah', ar: 'فاه', fr: 'Bouche' }, { darija: 'Tabassut', ar: 'تبصيص', fr: 'Sourire' }, { darija: 'Dahak', ar: 'ضحك', fr: 'Rire' }, { darija: 'Buka', ar: 'بكاء', fr: 'Pleurer' }, { darija: 'Azza', ar: 'عزاء', fr: 'Condoleances' }, { darija: 'Tabrik', ar: 'تبريك', fr: 'Felicitation' }, { darija: 'Sakhira', ar: 'سخرية', fr: 'Moquerie' }, { darija: 'Nahzah', ar: 'نهزة', fr: 'Raillerie' }, { darija: 'Madan', ar: 'مدح', fr: 'Louange' }, { darija: 'Hanam', ar: 'حنان', fr: 'Tendresse' }, { darija: 'Tawasul', ar: 'توسل', fr: 'Supplication' }, { darija: 'Tadhru', ar: 'تضرع', fr: 'Imploration' }, { darija: 'Tadhmur', ar: 'تدمير', fr: 'Menace' }, { darija: 'Tawbikh', ar: 'توبيخ', fr: 'Reproche' }, { darija: 'Hasm', ar: 'هسم', fr: 'Chuchotement' }, { darija: 'Sagha', ar: 'صاغ', fr: 'Formuler' }, { darija: 'Adla', ar: 'عدلة', fr: 'Equite' }, { darija: 'Unf', ar: 'أنف', fr: 'Orgueil' }, { darija: 'Tahanin', ar: 'تهاني', fr: 'Voeux' }
-                ] },
-                { id: 19, emoji: '📢', name: 'Presentation (40+ mots)', vocab: [
-                    { darija: 'Khetab', ar: 'خطاب', fr: 'Discours' }, { darija: 'Tdqiq', ar: 'تقديم', fr: 'Presentation' }, { darija: 'Ismi', ar: 'اسمي', fr: 'Mon nom' }, { darija: 'Smiya', ar: 'سمية', fr: 'Reputation' }, { darija: 'Jnsiyya', ar: 'جنسية', fr: 'Nationalite' }, { darija: 'Blaadi', ar: 'بلادي', fr: 'Mon pays' }, { darija: 'Shakshiyyati', ar: 'شخصيتي', fr: 'Ma personnalite' }, { darija: 'Aamali', ar: 'أعمالي', fr: 'Mes travaux' }, { darija: 'Marhalba', ar: 'مرحبا', fr: 'Bienvenue' }, { darija: 'Tshriftu', ar: 'تشريفك', fr: 'Tu m honores' }, { darija: 'Qibla', ar: 'قبلا', fr: 'Avant' }, { darija: 'Baadn', ar: 'بعدن', fr: 'Apres' }, { darija: 'Asilan', ar: 'أصلا', fr: 'Originellement' }, { darija: 'Hadak', ar: 'هاذاك', fr: 'Ce que' }, { darija: 'Takhtta', ar: 'تخطط', fr: 'Tu plantes' }, { darija: 'Joudi', ar: 'جودة', fr: 'Qualite' }, { darija: 'Haddaf', ar: 'هدف', fr: 'Objectif' }, { darija: 'Sorat', ar: 'صورة', fr: 'Image' }, { darija: 'Jnass', ar: 'جنس', fr: 'Genre' }, { darija: 'Lamaah', ar: 'لمحة', fr: 'Apercu' }, { darija: 'Istkhlas', ar: 'استخلاص', fr: 'Resume' }, { darija: 'Tahlil', ar: 'تحليل', fr: 'Analyse' }, { darija: 'Tatoor', ar: 'تطور', fr: 'Evolution' }, { darija: 'Taahil', ar: 'تأهيل', fr: 'Qualification' }, { darija: 'Tathqif', ar: 'تثقيف', fr: 'Erudition' }, { darija: 'Takwin', ar: 'تكوين', fr: 'Formation' }, { darija: 'Tadrib', ar: 'تدريب', fr: 'Entrainement' }, { darija: 'Tajarib', ar: 'تجارب', fr: 'Experiences' }, { darija: 'Maharat', ar: 'مهارات', fr: 'Competences' }, { darija: 'Qudrat', ar: 'قدرات', fr: 'Capacites' }, { darija: 'Dawaafi', ar: 'دوافع', fr: 'Motivations' }, { darija: 'Ahdaf', ar: 'أهداف', fr: 'Objectifs' }, { darija: 'Raghbat', ar: 'رغبات', fr: 'Desirs' }, { darija: 'Fikrah', ar: 'فكرة', fr: 'Idee' }, { darija: 'Rowya', ar: 'رؤية', fr: 'Vision' }, { darija: 'Risalah', ar: 'رسالة', fr: 'Message' }, { darija: 'Tawhid', ar: 'توحيد', fr: 'Unification' }, { darija: 'Tasdir', ar: 'تصدير', fr: 'Introduction' }, { darija: 'Tatabh', ar: 'تتبع', fr: 'Suivi' }, { darija: 'Tadkhir', ar: 'تذكير', fr: 'Rappel' }
+                { id: 16, emoji: '📚', name: 'Tallim (Etudes)', vocab: [
+                    { darija: 'Skola', ar: 'مدرسة', fr: 'Ecole' },
+                    { darija: 'Taleb', ar: 'طالب', fr: 'Etudiant' },
+                    { darija: 'Talba', ar: 'طالبة', fr: 'Etudiante' },
+                    { darija: 'Imtihan', ar: 'امتحان', fr: 'Examen' },
+                    { darija: 'Kahar', ar: 'كراس', fr: 'Cahier' },
+                    { darija: 'Qalam', ar: 'قلم', fr: 'Stylo' },
+                    { darija: 'Dar', ar: 'درس', fr: 'Lecon' },
+                    { darija: 'Tadris', ar: 'تدريس', fr: 'Enseignement' },
+                    { darija: 'Marha', ar: 'درجة', fr: 'Note' },
+                    { darija: 'Mumtaz', ar: 'ممتاز', fr: 'Excellent' },
+                    { darija: 'Jayyid', ar: 'جيد', fr: 'Bon' },
+                    { darija: 'Waste', ar: 'ضعيف', fr: 'Faible' },
+                    { darija: 'Libro', ar: 'كتاب', fr: 'Livre' },
+                    { darija: 'Classe', ar: 'فصل', fr: 'Classe' },
+                    { darija: 'Madaa', ar: 'مادة', fr: 'Matiere' },
+                    { darija: 'Fahem', ar: 'فهم', fr: 'Comprehension' },
+                    { darija: 'Takrir', ar: 'تكرار', fr: 'Revision' },
+                    { darija: 'Tahddib', ar: 'تحضير', fr: 'Preparation' },
+                    { darija: 'Dirasah', ar: 'دراسة', fr: 'Etude' },
+                    { darija: 'Buhuth', ar: 'بحث', fr: 'Recherche' },
+                    { darija: 'Jawa', ar: 'إجابة', fr: 'Reponse' },
+                    { darija: 'Swaal', ar: 'سؤال', fr: 'Question' },
+                    { darija: 'Natij', ar: 'نتيجة', fr: 'Resultat' },
+                    { darija: 'Sana', ar: 'سنة', fr: 'Annee' },
+                    { darija: 'Trimass', ar: 'ثلاثي', fr: 'Trimestre' },
+                    { darija: 'Ghibsa', ar: 'غياب', fr: 'Absence' },
+                    { darija: 'Hadra', ar: 'حضور', fr: 'Presence' },
+                    { darija: 'Jadwal', ar: 'جدول', fr: 'Horaire' },
+                    { darija: 'Taalim alian', ar: 'تعليم عالي', fr: 'Etudes superieures' },
+                    { darija: 'Jami3a', ar: 'جامعة', fr: 'Universite' }
                 ] }
             ],
             'Culture': [
-                { id: 20, emoji: '🎉', name: 'Fetes (40+ mots)', vocab: [
-                    { darija: 'Aida', ar: 'عيد', fr: 'Fete' }, { darija: 'Ramdan', ar: 'رمضان', fr: 'Ramadan' }, { darija: 'Leid Elkabir', ar: 'عيد الكبير', fr: 'Aid al-Adha' }, { darija: 'Leid Essghir', ar: 'عيد الصغير', fr: 'Aid al-Fitr' }, { darija: 'Mouled', ar: 'مولد', fr: 'Anniversaire' }, { darija: 'Zina', ar: 'زينة', fr: 'Decoration' }, { darija: 'Hadiya', ar: 'هدية', fr: 'Cadeau' }, { darija: 'Mabrok', ar: 'مبروك', fr: 'Felicitations' }, { darija: 'Taffat', ar: 'طقة', fr: 'Ceremonie' }, { darija: 'Jamsah', ar: 'جماع', fr: 'Assemblee' }, { darija: 'Wada', ar: 'وداع', fr: 'Adieu' }, { darija: 'Tahni', ar: 'تهني', fr: 'Vœux' }, { darija: 'Liwa', ar: 'اللواء', fr: 'Drapeau' }, { darija: 'Nbor', ar: 'نبور', fr: 'Timbour' }, { darija: 'Khemsa', ar: 'خمسة', fr: 'Cinq' }, { darija: 'Tkhaf', ar: 'تخاف', fr: 'Peur' }, { darija: 'Msrir', ar: 'مسرور', fr: 'Heureux' }, { darija: 'Bzin', ar: 'بزين', fr: 'Joli' }, { darija: 'Kabar', ar: 'كبير', fr: 'Grand' }, { darija: 'Rahuma', ar: 'راهما', fr: 'Actuellement' }, { darija: 'Layali', ar: 'ليالي', fr: 'Nuits' }, { darija: 'Wahech', ar: 'واحش', fr: 'Seul' }, { darija: 'Jama', ar: 'جما', fr: 'Ensemble' }, { darija: 'Taaniss', ar: 'تأنيس', fr: 'Convivialite' }, { darija: 'Sharaf', ar: 'شرف', fr: 'Honneur' }, { darija: 'Karama', ar: 'كرامة', fr: 'Dignite' }, { darija: 'Shamel', ar: 'شامل', fr: 'Complet' }, { darija: 'Rahin', ar: 'راهن', fr: 'Actuel' }, { darija: 'Zayn', ar: 'زين', fr: 'Beau' }, { darija: 'Ghanij', ar: 'غني', fr: 'Riche' }, { darija: 'Fahmi', ar: 'فهمي', fr: 'Comprehension' }, { darija: 'Sharqi', ar: 'شرقي', fr: 'Oriental' }, { darija: 'Gharbi', ar: 'غربي', fr: 'Occidental' }, { darija: 'Wahid', ar: 'وحيد', fr: 'Unique' }, { darija: 'Athir', ar: 'أثير', fr: 'Ether' }, { darija: 'Shadid', ar: 'شديد', fr: 'Intense' }, { darija: 'Latif', ar: 'لطيف', fr: 'Delicat' }, { darija: 'Hasana', ar: 'حسنة', fr: 'Bonne action' }, { darija: 'Sayia', ar: 'سيئة', fr: 'Mauvaise action' }, { darija: 'Haram', ar: 'حرام', fr: 'Interdit' }
+                { id: 20, emoji: '🎉', name: 'Aida (Fetes)', vocab: [
+                    { darija: 'Fêtes', ar: 'عيد', fr: 'Fete' },
+                    { darija: 'Ramdan', ar: 'رمضان', fr: 'Ramadan' },
+                    { darija: 'Leid Lkbir', ar: 'عيد الكبير', fr: 'Aid al-Adha' },
+                    { darija: 'Leid Sghir', ar: 'عيد الصغير', fr: 'Aid al-Fitr' },
+                    { darija: 'Siyam', ar: 'صيام', fr: 'Jeune' },
+                    { darija: 'Iftar', ar: 'إفطار', fr: 'Rupture du jeune' },
+                    { darija: 'Shuuur', ar: 'سحور', fr: 'Repas du matin' },
+                    { darija: 'Mouled', ar: 'مولد', fr: 'Anniversaire' },
+                    { darija: 'Zina', ar: 'زينة', fr: 'Decoration' },
+                    { darija: 'Hadiya', ar: 'هدية', fr: 'Cadeau' },
+                    { darija: 'Mabrok', ar: 'مبروك', fr: 'Felicitations' },
+                    { darija: 'Kayna', ar: 'كينة', fr: 'Ceremonie' },
+                    { darija: 'Jamsaa', ar: 'جماعة', fr: 'Assemblee' },
+                    { darija: 'Wada', ar: 'وداع', fr: 'Adieu' },
+                    { darija: 'Tahni', ar: 'تهاني', fr: 'Voeux' },
+                    { darija: 'Mussiqua', ar: 'موسيقى', fr: 'Musique' },
+                    { darija: 'Rassa', ar: 'رقصة', fr: 'Danse' },
+                    { darija: 'Zulla', ar: 'طعام', fr: 'Repas' },
+                    { darija: 'Mellal', ar: 'حلويات', fr: 'Friandises' },
+                    { darija: 'Lina', ar: 'ليلة', fr: 'Nuit' },
+                    { darija: 'Yuma', ar: 'يوم', fr: 'Jour' },
+                    { darija: 'Sharaf', ar: 'شرف', fr: 'Honneur' },
+                    { darija: 'Karama', ar: 'كرامة', fr: 'Dignite' },
+                    { darija: 'Jama', ar: 'جماعة', fr: 'Ensemble' },
+                    { darija: 'Nssa', ar: 'نسوة', fr: 'Femmes' },
+                    { darija: 'Rajal', ar: 'رجال', fr: 'Hommes' },
+                    { darija: 'Atfal', ar: 'أطفال', fr: 'Enfants' },
+                    { darija: 'Kbaaira', ar: 'كبار', fr: 'Grands' },
+                    { darija: 'Sghaaira', ar: 'صغار', fr: 'Petits' },
+                    { darija: 'Mussalat', ar: 'مشاركة', fr: 'Partage' }
                 ] },
-                { id: 21, emoji: '🤝', name: 'Coutumes (40+ mots)', vocab: [
-                    { darija: 'Ada', ar: 'عادة', fr: 'Coutume' }, { darija: 'Traditioun', ar: 'تقليد', fr: 'Tradition' }, { darija: 'Haram', ar: 'حرام', fr: 'Interdit' }, { darija: 'Halal', ar: 'حلال', fr: 'Licite' }, { darija: 'Takhlit', ar: 'تخليط', fr: 'Melange' }, { darija: 'Adwiyya', ar: 'أدوية', fr: 'Remedes' }, { darija: 'Laghwat', ar: 'اللغة', fr: 'Langue' }, { darija: 'Fkara', ar: 'فكرة', fr: 'Idee' }, { darija: 'Qiym', ar: 'قيم', fr: 'Valeurs' }, { darija: 'Mbahat', ar: 'ظاهرة', fr: 'Phenomene' }, { darija: 'Kahraf', ar: 'كهراف', fr: 'Sorcier' }, { darija: 'Daqiq', ar: 'دقيق', fr: 'Farine' }, { darija: 'Zlat', ar: 'ذهب', fr: 'Or' }, { darija: 'Fehm', ar: 'فهم', fr: 'Comprehension' }, { darija: 'Qbul', ar: 'قبول', fr: 'Acceptation' }, { darija: 'Sorf', ar: 'صرف', fr: 'Echange' }, { darija: 'Jibala', ar: 'جبالة', fr: 'Montagneux' }, { darija: 'Sahel', ar: 'ساحل', fr: 'Littoral' }, { darija: 'Wasti', ar: 'وسط', fr: 'Milieu' }, { darija: 'Jhara', ar: 'جهاز', fr: 'Appareil' }, { darija: 'Tahdhib', ar: 'تهذيب', fr: 'Civilisation' }, { darija: 'Taaddub', ar: 'تأدب', fr: 'Politesse' }, { darija: 'Ihtiram', ar: 'احترام', fr: 'Respect' }, { darija: 'Tahabbur', ar: 'تحابر', fr: 'Cordialite' }, { darija: 'Widad', ar: 'ودادة', fr: 'Amitie' }, { darija: 'Sharama', ar: 'شرامة', fr: 'Honneur' }, { darija: 'Izza', ar: 'عزة', fr: 'Puissance' }, { darija: 'Quwwa', ar: 'قوة', fr: 'Force' }, { darija: 'Khafif', ar: 'خفيف', fr: 'Leger' }, { darija: 'Thaqil', ar: 'ثقيل', fr: 'Lourd' }, { darija: 'Sharq', ar: 'شرق', fr: 'Orientalisme' }, { darija: 'Garb', ar: 'غرب', fr: 'Occidentalisme' }, { darija: 'Qadim', ar: 'قديم', fr: 'Ancien' }, { darija: 'Hadith', ar: 'حديث', fr: 'Moderne' }, { darija: 'Imtizaj', ar: 'امتزاج', fr: 'Fusion' }, { darija: 'Inqilab', ar: 'انقلاب', fr: 'Revolution' }, { darija: 'Ishlah', ar: 'إصلاح', fr: 'Reforme' }, { darija: 'Taqaddim', ar: 'تقدم', fr: 'Progres' }, { darija: 'Tahawwul', ar: 'تحول', fr: 'Transformation' }, { darija: 'Takayyuf', ar: 'تكيف', fr: 'Adaptation' }
+                { id: 21, emoji: '🤝', name: 'Ada (Coutumes)', vocab: [
+                    { darija: 'Coutumes', ar: 'عادة', fr: 'Coutume' },
+                    { darija: 'Taqlid', ar: 'تقليد', fr: 'Tradition' },
+                    { darija: 'Haram', ar: 'حرام', fr: 'Interdit' },
+                    { darija: 'Halal', ar: 'حلال', fr: 'Licite' },
+                    { darija: 'Tahdhib', ar: 'تهذيب', fr: 'Civilisation' },
+                    { darija: 'Adab', ar: 'أدب', fr: 'Politesse' },
+                    { darija: 'Ihtiram', ar: 'احترام', fr: 'Respect' },
+                    { darija: 'Tahabbur', ar: 'تحابر', fr: 'Cordialite' },
+                    { darija: 'Widad', ar: 'ودادة', fr: 'Amitie' },
+                    { darija: 'Thaqafa', ar: 'ثقافة', fr: 'Culture' },
+                    { darija: 'Qaym', ar: 'قيم', fr: 'Valeurs' },
+                    { darija: 'Fakir', ar: 'فكر', fr: 'Pensee' },
+                    { darija: 'Rouh', ar: 'روح', fr: 'Esprit' },
+                    { darija: 'Jism', ar: 'جسم', fr: 'Corps' },
+                    { darija: 'Ruh wa Jism', ar: 'روح وجسم', fr: 'Ame et corps' },
+                    { darija: 'Watani', ar: 'وطني', fr: 'National' },
+                    { darija: 'Hadari', ar: 'حضري', fr: 'Urbain' },
+                    { darija: 'Rifi', ar: 'ريفي', fr: 'Rural' },
+                    { darija: 'Baladi', ar: 'بلدي', fr: 'Local' },
+                    { darija: 'Ajanbi', ar: 'أجنبي', fr: 'Etranger' },
+                    { darija: 'Fard', ar: 'فرد', fr: 'Individu' },
+                    { darija: 'Jamaa', ar: 'جماعة', fr: 'Groupe' },
+                    { darija: 'Ijtima', ar: 'اجتماع', fr: 'Societe' },
+                    { darija: 'Silm', ar: 'سلم', fr: 'Paix' },
+                    { darija: 'Harb', ar: 'حرب', fr: 'Guerre' },
+                    { darija: 'Dawla', ar: 'دولة', fr: 'Etat' },
+                    { darija: 'Hukuma', ar: 'حكومة', fr: 'Gouvernement' },
+                    { darija: 'Qanun', ar: 'قانون', fr: 'Loi' },
+                    { darija: 'Hagg', ar: 'حق', fr: 'Droit' },
+                    { darija: 'Wajib', ar: 'واجب', fr: 'Devoir' }
                 ] },
-                { id: 22, emoji: '🏛️', name: 'Histoire (40+ mots)', vocab: [
-                    { darija: 'Tariikh', ar: 'تاريخ', fr: 'Histoire' }, { darija: 'Geografi', ar: 'جغرافيا', fr: 'Geographie' }, { darija: 'Watani', ar: 'وطني', fr: 'National' }, { darija: 'Bilad', ar: 'بلاد', fr: 'Pays' }, { darija: 'Kharij', ar: 'خارج', fr: 'Exterieur' }, { darija: 'Dakhil', ar: 'داخل', fr: 'Interieur' }, { darija: 'Kiyan', ar: 'كيان', fr: 'Entite' }, { darija: 'Hawiyyah', ar: 'هوية', fr: 'Identite' }, { darija: 'Thaqafa', ar: 'ثقافة', fr: 'Culture' }, { darija: 'Ijtimaa', ar: 'اجتماع', fr: 'Societe' }, { darija: 'Qadim', ar: 'قديم', fr: 'Ancien' }, { darija: 'Jdid', ar: 'جديد', fr: 'Nouveau' }, { darija: 'Siyassa', ar: 'سياسة', fr: 'Politique' }, { darija: 'Askar', ar: 'عسكر', fr: 'Militaire' }, { darija: 'Hukuma', ar: 'حكومة', fr: 'Gouvernement' }, { darija: 'Malik', ar: 'ملك', fr: 'Roi' }, { darija: 'Rajol', ar: 'رجال', fr: 'Hommes' }, { darija: 'Sabt', ar: 'سبت', fr: 'Samedi' }, { darija: 'Kahar', ar: 'كهار', fr: 'Bataille' }, { darija: 'Zaim', ar: 'زعيم', fr: 'Chef' }, { darija: 'Diktatura', ar: 'ديكتاتورية', fr: 'Dictature' }, { darija: 'Dimuqratiya', ar: 'ديمقراطية', fr: 'Democratie' }, { darija: 'Jawab', ar: 'جواب', fr: 'Reponse' }, { darija: 'Mustamirrun', ar: 'مستعمرون', fr: 'Colonisateurs' }, { darija: 'Istiqlal', ar: 'استقلال', fr: 'Independence' }, { darija: 'Tahrir', ar: 'تحرير', fr: 'Liberation' }, { darija: 'Nizam', ar: 'نظام', fr: 'Regime' }, { darija: 'Constitusyon', ar: 'دستور', fr: 'Constitution' }, { darija: 'Qanun', ar: 'قانون', fr: 'Loi' }, { darija: 'Qadda', ar: 'قضاء', fr: 'Justice' }, { darija: 'Hakkh', ar: 'حق', fr: 'Droit' }, { darija: 'Witajiba', ar: 'واجب', fr: 'Devoir' }, { darija: 'Mawatan', ar: 'مواطن', fr: 'Citoyen' }, { darija: 'Watni', ar: 'وطني', fr: 'Patriote' }, { darija: 'Tahadir', ar: 'تحضر', fr: 'Civilisation' }, { darija: 'Badawa', ar: 'بدوي', fr: 'Bedouin' }, { darija: 'Hadari', ar: 'حضري', fr: 'Urbain' }, { darija: 'Rifi', ar: 'ريفي', fr: 'Rural' }, { darija: 'Tajaar', ar: 'تجار', fr: 'Commercants' }, { darija: 'Sanaa', ar: 'صنعة', fr: 'Metier' }
+                { id: 22, emoji: '🏛️', name: 'Tariikh (Histoire)', vocab: [
+                    { darija: 'Histoire', ar: 'تاريخ', fr: 'Histoire' },
+                    { darija: 'Waqaa', ar: 'وقائع', fr: 'Evenements' },
+                    { darija: 'Qadim', ar: 'قديم', fr: 'Ancien' },
+                    { darija: 'Hadith', ar: 'حديث', fr: 'Moderne' },
+                    { darija: 'Wathan', ar: 'وطن', fr: 'Patrie' },
+                    { darija: 'Watani', ar: 'وطني', fr: 'National' },
+                    { darija: 'Istiqlal', ar: 'استقلال', fr: 'Independence' },
+                    { darija: 'Tahrir', ar: 'تحرير', fr: 'Liberation' },
+                    { darija: 'Kahal', ar: 'كفاح', fr: 'Lutte' },
+                    { darija: 'Khitab', ar: 'خطاب', fr: 'Discours' },
+                    { darija: 'Zaim', ar: 'زعيم', fr: 'Chef' },
+                    { darija: 'Malik', ar: 'ملك', fr: 'Roi' },
+                    { darija: 'Sultan', ar: 'سلطان', fr: 'Sultan' },
+                    { darija: 'Amir', ar: 'أمير', fr: 'Prince' },
+                    { darija: 'Qadi', ar: 'قاضي', fr: 'Juge' },
+                    { darija: 'Khatib', ar: 'خطيب', fr: 'Orateur' },
+                    { darija: 'Shalih', ar: 'شاعر', fr: 'Poete' },
+                    { darija: 'Aaskar', ar: 'عسكر', fr: 'Militaire' },
+                    { darija: 'Harb', ar: 'حرب', fr: 'Guerre' },
+                    { darija: 'Silm', ar: 'سلم', fr: 'Paix' },
+                    { darija: 'Mua3hada', ar: 'معاهدة', fr: 'Traite' },
+                    { darija: 'Adwa', ar: 'أدوار', fr: 'Periodes' },
+                    { darija: 'Asur', ar: 'عصر', fr: 'Epoque' },
+                    { darija: 'Qarn', ar: 'قرن', fr: 'Siecle' },
+                    { darija: 'Sana', ar: 'سنة', fr: 'Annee' },
+                    { darija: 'Jil', ar: 'جيل', fr: 'Generation' },
+                    { darija: 'Tatsur', ar: 'تطور', fr: 'Evolution' },
+                    { darija: 'Takhli', ar: 'تخلف', fr: 'Retard' },
+                    { darija: 'Tagaddim', ar: 'تقدم', fr: 'Progres' },
+                    { darija: 'Hadara', ar: 'حضارة', fr: 'Civilisation' }
                 ] },
-                { id: 23, emoji: '🎵', name: 'Musique & Arts (40+ mots)', vocab: [
-                    { darija: 'Daoua', ar: 'دعوة', fr: 'Daoua' }, { darija: 'Kabyle', ar: 'قبايل', fr: 'Kabylie' }, { darija: 'Rai', ar: 'راي', fr: 'Rai' }, { darija: 'Gnaoua', ar: 'كناوة', fr: 'Gnaoua' }, { darija: 'Andaloussa', ar: 'اندلسية', fr: 'Andalouse' }, { darija: 'Malouf', ar: 'ملحون', fr: 'Malouf' }, { darija: 'Sentimental', ar: 'غنائي', fr: 'Sentimental' }, { darija: 'Folklore', ar: 'فولكلور', fr: 'Folklore' }, { darija: 'Hymne', ar: 'نشيد', fr: 'Hymne' }, { darija: 'Musique', ar: 'موسيقى', fr: 'Musique' }, { darija: 'Zaar', ar: 'زعار', fr: 'Cris' }, { darija: 'Bendir', ar: 'بندير', fr: 'Tambourin' }, { darija: 'Oud', ar: 'عود', fr: 'Luth' }, { darija: 'Buzuki', ar: 'بوزوكي', fr: 'Bouzouki' }, { darija: 'Ghaita', ar: 'غيطة', fr: 'Hautbois' }, { darija: 'Rebab', ar: 'رباب', fr: 'Rebec' }, { darija: 'Tar', ar: 'طار', fr: 'Tambour de basque' }, { darija: 'Sanat', ar: 'سنة', fr: 'Chant' }, { darija: 'Wadaa', ar: 'وداع', fr: 'Adieu' }, { darija: 'Hob', ar: 'حب', fr: 'Amour' }, { darija: 'Ghinaa', ar: 'غناء', fr: 'Chanson' }, { darija: 'Kaani', ar: 'قاني', fr: 'Chanteur' }, { darija: 'Kaana', ar: 'قانة', fr: 'Chanteuse' }, { darija: 'Muzika', ar: 'موسيقار', fr: 'Musicien' }, { darija: 'Nighma', ar: 'نغمة', fr: 'Melodie' }, { darija: 'Suut', ar: 'صوت', fr: 'Voix' }, { darija: 'Ankaa', ar: 'أنكة', fr: 'Feminin' }, { darija: 'Thaqaafa', ar: 'ثقافة', fr: 'Culture' }, { darija: 'Bina', ar: 'بناء', fr: 'Architecture' }, { darija: 'Taswir', ar: 'تصوير', fr: 'Photographie' }, { darija: 'Rasm', ar: 'رسم', fr: 'Dessin' }, { darija: 'Labis', ar: 'لابس', fr: 'Vetement' }, { darija: 'Zebi', ar: 'زبي', fr: 'Style' }, { darija: 'Tanz', ar: 'رقص', fr: 'Danse' }, { darija: 'Haraka', ar: 'حركة', fr: 'Mouvement' }, { darija: 'Rhythm', ar: 'إيقاع', fr: 'Rythme' }, { darija: 'Tawazon', ar: 'توازن', fr: 'Equilibre' }, { darija: 'Tajmi', ar: 'تجمي', fr: 'Beaute' }, { darija: 'Zayn', ar: 'زين', fr: 'Ornementation' }, { darija: 'Kalamshi', ar: 'كلمشي', fr: 'Expression artistique' }
+                { id: 23, emoji: '🎵', name: 'Fann (Arts & Musique)', vocab: [
+                    { darija: 'Ghinaa', ar: 'غناء', fr: 'Chanson' },
+                    { darija: 'Mussiqua', ar: 'موسيقى', fr: 'Musique' },
+                    { darija: 'Kaani', ar: 'قاني', fr: 'Chanteur' },
+                    { darija: 'Oud', ar: 'عود', fr: 'Luth' },
+                    { darija: 'Bendir', ar: 'بندير', fr: 'Tambourin' },
+                    { darija: 'Tar', ar: 'طار', fr: 'Tambour' },
+                    { darija: 'Rebab', ar: 'رباب', fr: 'Rebec' },
+                    { darija: 'Ghaita', ar: 'غيطة', fr: 'Hautbois' },
+                    { darija: 'Nay', ar: 'ناي', fr: 'Flute' },
+                    { darija: 'Rassa', ar: 'رقصة', fr: 'Danse' },
+                    { darija: 'Raqqas', ar: 'راقص', fr: 'Danseur' },
+                    { darija: 'Rasm', ar: 'رسم', fr: 'Dessin' },
+                    { darija: 'Taswir', ar: 'تصوير', fr: 'Photographie' },
+                    { darija: 'Naht', ar: 'نحت', fr: 'Sculpture' },
+                    { darija: 'Amaal yad', ar: 'أعمال يدوية', fr: 'Artisanat' },
+                    { darija: 'Khazf', ar: 'خزف', fr: 'Ceramique' },
+                    { darija: 'Traz', ar: 'تراز', fr: 'Broderie' },
+                    { darija: 'Zali', ar: 'زلي', fr: 'Tapis traditionnel' },
+                    { darija: 'Jraz', ar: 'جزائري', fr: 'Algerien' },
+                    { darija: 'Rai', ar: 'راي', fr: 'Rai (musique)' },
+                    { darija: 'Gnaoua', ar: 'كناوة', fr: 'Gnaoua' },
+                    { darija: 'Kabyla', ar: 'قبيلة', fr: 'Musique Kabyle' },
+                    { darija: 'Hawzi', ar: 'حاوزي', fr: 'Musique Hawzi' },
+                    { darija: 'Malouf', ar: 'ملحون', fr: 'Malouf' },
+                    { darija: 'Ndjoum', ar: 'نجوم', fr: 'Artistes' },
+                    { darija: 'Farinja', ar: 'فرقة', fr: 'Groupe' },
+                    { darija: 'Shams', ar: 'شمس', fr: 'Lumiere/Splendeur' },
+                    { darija: 'Noor', ar: 'نور', fr: 'Lumiere' },
+                    { darija: 'Bahar', ar: 'بحر', fr: 'Mer' },
+                    { darija: 'Rih', ar: 'ريح', fr: 'Vent/Souffle' }
                 ] }
             ]
         };
@@ -284,51 +697,144 @@
         function awardXP(n) { state.xp += n; if (state.xp >= 500) { state.level++; state.xp = 0; showAchievement('LEVEL UP'); } saveState(); }
         function showAchievement(msg) { const el = document.getElementById('achievement'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2000); }
 
-        function initVocab() { allVocab = []; Object.values(CATEGORIES).forEach(cat => { cat.forEach(theme => { theme.vocab.forEach(v => { allVocab.push({...v, themeName: theme.name}); }); }); }); }
+        function initVocab() { allVocab = []; try { Object.values(CATEGORIES).forEach(cat => { if (Array.isArray(cat)) { cat.forEach(theme => { if (theme && theme.vocab && Array.isArray(theme.vocab)) { theme.vocab.forEach(v => { if (v) allVocab.push({...v, themeName: theme.name}); }); } }); } }); } catch(e) { console.error('Vocab init error:', e); } }
 
         function renderCats() { let html = ''; Object.keys(CATEGORIES).forEach((cat, i) => { html += `<button class="cat-btn ${i === 0 ? 'active' : ''}" onclick="selectCat(event, '${cat}')">${cat}</button>`; }); html += '<button class="cat-btn" onclick="openIA()">🤖 IA</button>'; document.getElementById('cats').innerHTML = html; }
 
         function selectCat(e, cat) { document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); e.target.classList.add('active'); document.getElementById('detail').style.display = 'none'; document.getElementById('ia-page').style.display = 'none'; document.getElementById('profile-page').style.display = 'none'; document.getElementById('home').style.display = 'block'; renderThemes(cat); }
 
-        function renderThemes(cat) { let html = ''; CATEGORIES[cat].forEach(t => { html += `<div class="card" onclick="selectTheme(${t.id}, '${t.name}')"><div class="card-emoji">${t.emoji}</div><h3 class="card-title">${t.name}</h3></div>`; }); document.getElementById('grid').innerHTML = html; }
+        function renderThemes(cat) { let html = ''; (CATEGORIES[cat] || []).forEach(t => { html += `<div class="card" onclick="selectTheme(${t.id}, '${t.name}')"><div class="card-emoji">${t.emoji}</div><h3 class="card-title">${t.name}</h3></div>`; }); document.getElementById('grid').innerHTML = html; }
 
         function selectTheme(id, name) { currentTheme = Object.values(CATEGORIES).flat().find(t => t.id === id); document.getElementById('title').textContent = name; renderVocab(); renderQCM(); renderShadowing(); renderTabs(); document.getElementById('home').style.display = 'none'; document.getElementById('ia-page').style.display = 'none'; document.getElementById('profile-page').style.display = 'none'; document.getElementById('detail').style.display = 'block'; }
 
-        function renderVocab() { let html = ''; currentTheme.vocab.forEach(v => { html += `<div class="vocab-card"><div class="vocab-emoji">📝</div><div class="vocab-text"><p class="vocab-darija">${v.darija}</p><p class="vocab-fr">${v.fr}</p></div></div>`; }); document.getElementById('vocab').innerHTML = html; }
+        function renderVocab() { let html = ''; if (currentTheme && currentTheme.vocab && Array.isArray(currentTheme.vocab)) { currentTheme.vocab.forEach(v => { if (v) html += `<div class="vocab-card"><div class="vocab-emoji">📝</div><div class="vocab-text"><p class="vocab-darija">${v.darija || ''}</p><p class="vocab-fr">${v.fr || ''}</p></div></div>`; }); } document.getElementById('vocab').innerHTML = html; }
 
         let qcmIdx = 0;
         function renderQCM() { qcmIdx = 0; makeQCM(); }
-        function makeQCM() { if (qcmIdx >= currentTheme.vocab.length) { awardXP(50); document.getElementById('qcm').innerHTML = '<p style="text-align: center; padding: 20px; color: #2d8a4e;">✅ QCM complété! +50 XP</p>'; return; } const curr = currentTheme.vocab[qcmIdx]; const ans = currentTheme.vocab.map(v => v.fr).sort(() => Math.random() - 0.5).slice(0, 4); if (!ans.includes(curr.fr)) ans[0] = curr.fr; ans.sort(() => Math.random() - 0.5); let html = `<div class="qcm-box"><p style="font-size: 14px; color: #2d8a4e; margin-bottom: 16px;">Traduction?</p><p class="qcm-word">${curr.darija}</p><div class="options">`; ans.forEach(a => { html += `<button class="option-btn" onclick="checkQCM(this, '${curr.fr}')">${a}</button>`; }); html += `</div><button class="next-btn" id="qcm-next" onclick="nextQCM()">Suivant</button><p style="text-align: center; font-size: 12px; color: #666; margin-top: 12px;">${qcmIdx + 1}/${currentTheme.vocab.length}</p></div>`; document.getElementById('qcm').innerHTML = html; }
+        function makeQCM() { if (!currentTheme || !currentTheme.vocab || qcmIdx >= currentTheme.vocab.length) { awardXP(50); document.getElementById('qcm').innerHTML = '<p style="text-align: center; padding: 20px; color: #2d8a4e;">✅ Kmmalt ! +50 XP</p>'; return; } const curr = currentTheme.vocab[qcmIdx]; const ans = currentTheme.vocab.map(v => v.fr).sort(() => Math.random() - 0.5).slice(0, 4); if (!ans.includes(curr.fr)) ans[Math.floor(Math.random()*4)] = curr.fr; ans.sort(() => Math.random() - 0.5); let html = `<div class="qcm-box"><p style="font-size: 14px; color: #2d8a4e; margin-bottom: 16px;">Ash l tar juma</p><p class="qcm-word">${curr.darija}</p><div class="options">`; ans.forEach(a => { html += `<button class="option-btn" onclick="checkQCM(this, '${curr.fr}')">${a}</button>`; }); html += `</div><button class="next-btn" id="qcm-next" onclick="nextQCM()">Talya</button><p style="text-align: center; font-size: 12px; color: #666; margin-top: 12px;">${qcmIdx + 1}/${currentTheme.vocab.length}</p></div>`; document.getElementById('qcm').innerHTML = html; }
         function checkQCM(btn, correct) { document.querySelectorAll('#qcm .option-btn').forEach(b => b.disabled = true); if (btn.textContent === correct) btn.classList.add('correct'); else { btn.classList.add('wrong'); document.querySelectorAll('#qcm .option-btn').forEach(b => { if (b.textContent === correct) b.classList.add('correct'); }); } document.getElementById('qcm-next').style.display = 'block'; }
         function nextQCM() { qcmIdx++; makeQCM(); }
 
-        function renderShadowing() { let html = '<div style="padding: 20px; text-align: center; color: #2d8a4e;">'; currentTheme.vocab.slice(0, 3).forEach((v, i) => { html += `<div style="margin-bottom: 20px;"><p style="font-family: Amiri; font-size: 16px; font-weight: 600; margin-bottom: 8px;">${v.darija}</p><p style="font-size: 12px; margin-bottom: 12px;">${v.fr}</p><button style="padding: 10px 20px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-right: 8px;" onclick="playAudio('${v.darija}')">🔊 Ecouter</button><button style="padding: 10px 20px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer;" onclick="startRecording(${i})">🎤 Enregistrer</button><div id="rec-${i}"></div></div>`; }); html += '</div>'; document.getElementById('shadowing').innerHTML = html; }
-        function playAudio(word) { const u = new SpeechSynthesisUtterance(word); u.lang = 'ar-DZ'; window.speechSynthesis.speak(u); }
-        async function startRecording(idx) { try { const s = await navigator.mediaDevices.getUserMedia({ audio: true }); const mr = new MediaRecorder(s); mr.start(); document.getElementById(`rec-${idx}`).innerHTML = '<p style="color: red; font-weight: 700;">REC...</p>'; setTimeout(() => { mr.stop(); document.getElementById(`rec-${idx}`).innerHTML = '<p style="color: #2d8a4e; font-weight: 700;">OK!</p>'; }, 5000); } catch (e) { console.log('Mic denied'); } }
+        function renderShadowing() { let html = '<div style="padding: 20px; text-align: center; color: #2d8a4e;">'; if (currentTheme && currentTheme.vocab && Array.isArray(currentTheme.vocab)) { currentTheme.vocab.slice(0, 3).forEach((v, i) => { if (v && v.darija && v.fr) { html += `<div style="margin-bottom: 20px;"><p style="font-family: Amiri; font-size: 16px; font-weight: 600; margin-bottom: 8px;">${v.darija}</p><p style="font-size: 12px; margin-bottom: 12px;">${v.fr}</p><button style="padding: 10px 20px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-right: 8px;" onclick="playAudio('${v.darija}')">🔊 Sma</button><button style="padding: 10px 20px; background: #2d8a4e; color: #fff; border: none; border-radius: 8px; cursor: pointer;" onclick="startRecording(${i})">🎤 Squl</button><div id="rec-${i}"></div></div>`; } }); } html += '</div>'; document.getElementById('shadowing').innerHTML = html; }
 
-        function renderTabs() { let html = '<button class="tab active" onclick="switchTab(this, \'vocab\')">📚 Vocab</button><button class="tab" onclick="switchTab(this, \'qcm\')">🎮 QCM</button><button class="tab" onclick="switchTab(this, \'shadowing\')">🎤 Audio</button>'; document.getElementById('tabs').innerHTML = html; }
-        function switchTab(btn, tab) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.getElementById(tab).classList.add('active'); }
+        let cartesFlipped = {};
+        function renderCartes() { cartesFlipped = {}; makeCartes(); }
+        function makeCartes() { if (!currentTheme || !currentTheme.vocab) return; let html = '<div style="padding: 16px 12px;">'; currentTheme.vocab.forEach((v, idx) => { const isFlipped = cartesFlipped[idx] || false; const word = isFlipped ? v.fr : v.darija; const bgColor = isFlipped ? '#f0f7f2' : '#2d8a4e'; const textColor = isFlipped ? '#2d8a4e' : '#fff'; const fontFamily = isFlipped ? 'Inter' : 'Amiri'; html += `<div onclick="flipCartesCard(${idx})" style="background: ${bgColor}; border: 2px solid #2d8a4e; border-radius: 12px; padding: 16px; margin-bottom: 10px; cursor: pointer; text-align: center; transition: all 0.3s; user-select: none;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <p style="font-family: ${fontFamily}; font-size: 20px; font-weight: 700; margin: 0; color: ${textColor};">${word}</p>
+            </div>`; }); html += '</div>'; document.getElementById('cartes').innerHTML = html; }
+        function flipCartesCard(idx) { cartesFlipped[idx] = !cartesFlipped[idx]; makeCartes(); awardXP(2); }
+        function playAudio(word) { const u = new SpeechSynthesisUtterance(word); u.lang = 'ar-DZ'; window.speechSynthesis.speak(u); }
+        async function startRecording(idx) { try { const s = await navigator.mediaDevices.getUserMedia({ audio: true }); const mr = new MediaRecorder(s); mr.start(); document.getElementById(`rec-${idx}`).innerHTML = '<p style="color: red; font-weight: 700;">REC...</p>'; setTimeout(() => { mr.stop(); document.getElementById(`rec-${idx}`).innerHTML = '<p style="color: #2d8a4e; font-weight: 700;">TMAM!</p>'; }, 5000); } catch (e) { console.log('Microphone denied'); } }
+
+        function renderTabs() { let html = '<button class="tab active" onclick="switchTab(this, \'cartes\')">🃏 Cartes</button><button class="tab" onclick="switchTab(this, \'qcm\')">🎮 Taleb (4)</button><button class="tab" onclick="switchTab(this, \'phrase\')">📝 Phrase</button><button class="tab" onclick="switchTab(this, \'shadowing\')">🎤 Sma</button>'; document.getElementById('tabs').innerHTML = html; renderCartes(); }
+        function switchTab(btn, tab) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.getElementById(tab).classList.add('active'); if (tab === 'cartes') renderCartes(); if (tab === 'phrase') renderPhrase(); }
+
+        function generatePhrasesForTheme() {
+            if (!currentTheme || !currentTheme.vocab || currentTheme.vocab.length === 0) return [];
+            
+            const phrases = [];
+            const vocab = currentTheme.vocab.slice(0, 8);
+            
+            if (!Array.isArray(vocab)) return [];
+            
+            (vocab || []).forEach((word, idx) => {
+                if (!word || !word.darija) return;
+                
+                const distractors = currentTheme.vocab
+                    .filter((_, i) => i !== idx)
+                    .slice(0, 3)
+                    .map(w => w.darija)
+                    .filter(d => d);
+                
+                const phrase1 = `_____ jaj ${word.darija} bzaf!`;
+                phrases.push({
+                    text: phrase1,
+                    blank: word.darija,
+                    distractors: distractors
+                });
+                
+                if (idx % 2 === 0) {
+                    const phrase2 = `Had _____ zwin u mzian!`;
+                    phrases.push({
+                        text: phrase2,
+                        blank: word.darija,
+                        distractors: distractors
+                    });
+                }
+            });
+            
+            return phrases;
+        }
+
+        let phraseIdx = 0;
+        let phrasePhrases = [];
+        function renderPhrase() { phrasePhrases = generatePhrasesForTheme(); if (!phrasePhrases || phrasePhrases.length === 0) { document.getElementById('phrase').innerHTML = '<p style="text-align: center; padding: 20px; color: #999;">Selecti theme d\'abord</p>'; return; } phraseIdx = 0; makePhrase(); }
+        function makePhrase() { if (!phrasePhrases || phraseIdx >= phrasePhrases.length) { phraseIdx = 0; makePhrase(); return; } const phrase = phrasePhrases[phraseIdx]; if (!phrase) return; const options = [phrase.blank, ...(phrase.distractors || [])].filter(Boolean).sort(() => Math.random() - 0.5).slice(0, 4); let html = `<div style="padding: 20px;">
+            <div style="background: #ffffff; border: 2px solid #2d8a4e; border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+                <p style="font-family: Amiri; font-size: 18px; color: #2d8a4e; margin: 0; line-height: 1.8; font-weight: 600;">${phrase.text}</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 20px;">`;
+            options.forEach((opt) => { if (opt) html += `<button onclick="selectPhrase('${opt}', '${phrase.blank}')" style="padding: 10px 16px; background: #f0f7f2; border: 2px solid #2d8a4e; border-radius: 20px; color: #2d8a4e; cursor: pointer; font-weight: 600; font-size: 13px; font-family: Amiri;">${opt}</button>`; });
+            html += `</div><button onclick="skipPhrase()" style="width: 100%; padding: 12px; background: #999; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px;">Skip</button>
+            <p style="text-align: center; margin-top: 16px; font-size: 12px; color: #666;">${phraseIdx + 1}/${phrasePhrases.length}</p>
+            <div id="phrase-feedback" style="margin-top: 12px;"></div>
+        </div>`; document.getElementById('phrase').innerHTML = html; }
+        function selectPhrase(selected, correct) { const feedback = document.getElementById('phrase-feedback'); if (!feedback) return; if (selected === correct) { feedback.innerHTML = `<div style="background: #c8e6c9; border: 2px solid #4caf72; color: #2e7d32; padding: 12px; border-radius: 8px; font-weight: 600; text-align: center;">✅ Brah!</div>`; awardXP(15); setTimeout(() => { phraseIdx++; makePhrase(); }, 800); } else { feedback.innerHTML = `<div style="background: #ffcdd2; border: 2px solid #d32f2f; color: #b71c1c; padding: 12px; border-radius: 8px; font-weight: 600; text-align: center;">❌ Machi! Sawt: ${correct}</div>`; } }
+        function skipPhrase() { phraseIdx++; makePhrase(); }
 
         function openIA() { if (allVocab.length === 0) initVocab(); document.getElementById('home').style.display = 'none'; document.getElementById('detail').style.display = 'none'; document.getElementById('profile-page').style.display = 'none'; document.getElementById('ia-page').style.display = 'block'; renderIAQuestion(); }
 
         let currentIAQuestion = null;
-        function renderIAQuestion() { const q = allVocab[Math.floor(Math.random() * allVocab.length)]; currentIAQuestion = q; let html = `<div class="ia-container"><div class="ia-question">Comment dit-on "<strong>${q.fr}</strong>" en Darija?</div><div class="ia-hint">📌 Thème: ${q.themeName}</div><input type="text" class="ia-input" id="ia-answer" placeholder="Tape la réponse en Darija ou en Français..."><button class="ia-btn" onclick="checkIAAnswer()">Vérifier</button><div id="ia-feedback"></div><button class="ia-btn" onclick="renderIAQuestion()" style="background: #4caf72;">Question suivante</button></div>`; document.getElementById('ia-content').innerHTML = html; document.getElementById('ia-answer').focus(); }
+        function renderIAQuestion() { const q = allVocab[Math.floor(Math.random() * allVocab.length)]; currentIAQuestion = q; let html = `<div class="ia-container"><div class="ia-question">Ash ktib "<strong>${q.fr}</strong>" bil Darija?</div><div class="ia-hint">📌 Rubrika: ${q.themeName}</div><input type="text" class="ia-input" id="ia-answer" placeholder="Qul bil Darija au bil Franssa..."><button class="ia-btn" onclick="checkIAAnswer()">Fakkar</button><div id="ia-feedback"></div><button class="ia-btn" onclick="renderIAQuestion()" style="background: #4caf72;">Swaal Jdid</button></div>`; document.getElementById('ia-content').innerHTML = html; document.getElementById('ia-answer').focus(); }
 
-        function checkIAAnswer() { const ans = document.getElementById('ia-answer').value.trim().toLowerCase(); const correct = currentIAQuestion.darija.toLowerCase(); const fr = currentIAQuestion.fr.toLowerCase(); const feedback = document.getElementById('ia-feedback'); if (ans === correct || ans === fr) { feedback.innerHTML = `<div style="background: #c8e6c9; border-color: #4caf72; color: #2e7d32;">✅ Bravo! Réponse correcte: <strong>${currentIAQuestion.darija}</strong> = ${currentIAQuestion.fr}</div>`; awardXP(25); } else { feedback.innerHTML = `<div style="background: #ffcdd2; border-color: #d32f2f; color: #b71c1c;">❌ Pas tout à fait. La bonne réponse est: <strong>${currentIAQuestion.darija}</strong> = ${currentIAQuestion.fr}</div>`; } feedback.classList.add('ia-feedback'); }
+        function checkIAAnswer() { const ans = document.getElementById('ia-answer').value.trim().toLowerCase(); const correct = currentIAQuestion.darija.toLowerCase(); const fr = currentIAQuestion.fr.toLowerCase(); const feedback = document.getElementById('ia-feedback'); if (ans === correct || ans === fr) { feedback.innerHTML = `<div style="background: #c8e6c9; border-color: #4caf72; color: #2e7d32;">✅ Brah! Jawab sahih: <strong>${currentIAQuestion.darija}</strong> = ${currentIAQuestion.fr}</div>`; awardXP(25); } else { feedback.innerHTML = `<div style="background: #ffcdd2; border-color: #d32f2f; color: #b71c1c;">❌ Machi tmam. Jawab: <strong>${currentIAQuestion.darija}</strong> = ${currentIAQuestion.fr}</div>`; } feedback.classList.add('ia-feedback'); }
 
         function openProfile() { document.getElementById('home').style.display = 'none'; document.getElementById('detail').style.display = 'none'; document.getElementById('ia-page').style.display = 'none'; document.getElementById('profile-page').style.display = 'block'; updateProfileDisplay(); }
 
-        function updateProfileDisplay() { document.getElementById('prof-nom').value = profile.nom; document.getElementById('prof-email').value = profile.email; document.getElementById('prof-pays').value = profile.pays; document.getElementById('prof-bio').value = profile.bio; document.getElementById('prof-xp').textContent = state.xp; document.getElementById('prof-xp-header').textContent = state.xp; document.getElementById('prof-level').textContent = state.level; document.getElementById('prof-level-header').textContent = state.level; document.getElementById('prof-streak').textContent = state.streak; document.getElementById('prof-date').textContent = profile.dateInscrit || 'Aujourd\'hui'; document.getElementById('prof-vocab').textContent = allVocab.length; document.getElementById('prof-total-vocab').textContent = allVocab.length; }
+        function updateProfileDisplay() { 
+            if (document.getElementById('prof-nom')) {
+                document.getElementById('prof-nom').value = profile.nom; 
+                document.getElementById('prof-email').value = profile.email; 
+                document.getElementById('prof-pays').value = profile.pays; 
+                document.getElementById('prof-bio').value = profile.bio; 
+            }
+            if (document.getElementById('prof-xp')) document.getElementById('prof-xp').textContent = state.xp; 
+            if (document.getElementById('prof-xp-header')) document.getElementById('prof-xp-header').textContent = state.xp; 
+            if (document.getElementById('prof-level')) document.getElementById('prof-level').textContent = state.level; 
+            if (document.getElementById('prof-level-header')) document.getElementById('prof-level-header').textContent = state.level; 
+            if (document.getElementById('prof-streak')) document.getElementById('prof-streak').textContent = state.streak; 
+            if (document.getElementById('prof-date')) document.getElementById('prof-date').textContent = profile.dateInscrit || 'Taadi'; 
+            if (document.getElementById('prof-vocab')) document.getElementById('prof-vocab').textContent = allVocab.length; 
+        }
 
-        function saveProfile() { profile = { nom: document.getElementById('prof-nom').value, email: document.getElementById('prof-email').value, pays: document.getElementById('prof-pays').value, bio: document.getElementById('prof-bio').value, dateInscrit: profile.dateInscrit || new Date().toLocaleDateString() }; localStorage.setItem('profile', JSON.stringify(profile)); alert('✅ Profil sauvegardé!'); }
+        function saveProfile() { 
+            const nomEl = document.getElementById('prof-nom');
+            const emailEl = document.getElementById('prof-email');
+            const paysEl = document.getElementById('prof-pays');
+            const bioEl = document.getElementById('prof-bio');
+            if (nomEl && emailEl && paysEl && bioEl) {
+                profile = { nom: nomEl.value, email: emailEl.value, pays: paysEl.value, bio: bioEl.value, dateInscrit: profile.dateInscrit || new Date().toLocaleDateString() }; 
+                localStorage.setItem('profile', JSON.stringify(profile)); 
+                alert('✅ Mahfad!'); 
+            }
+        }
 
-        function loadProfile() { const saved = localStorage.getItem('profile'); if (saved) { profile = JSON.parse(saved); updateProfileDisplay(); alert('✅ Profil chargé!'); } else { alert('❌ Aucun profil à charger'); } }
+        function loadProfile() { 
+            const saved = localStorage.getItem('profile'); 
+            if (saved) { 
+                profile = JSON.parse(saved); 
+                updateProfileDisplay(); 
+                alert('✅ Chargé!'); 
+            } else { 
+                alert('❌ Walo'); 
+            } 
+        }
 
-        function installPWA() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') alert('✅ Appli installée!'); deferredPrompt = null; }); } else { alert('⬇️ L\'installation n\'est pas disponible sur votre appareil'); } }
+        function installPWA() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') alert('✅ Sbt!'); deferredPrompt = null; }); } else { alert('⬇️ Machi possible'); } }
 
         window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
 
-        initVocab(); updateStats(); renderCats(); renderThemes('Fondamentaux'); if (!profile.dateInscrit) { profile.dateInscrit = new Date().toLocaleDateString(); localStorage.setItem('profile', JSON.stringify(profile)); }
+        initVocab(); updateStats(); renderCats(); renderThemes('Asass'); if (!profile.dateInscrit) { profile.dateInscrit = new Date().toLocaleDateString(); localStorage.setItem('profile', JSON.stringify(profile)); }
 
         function backHome() { document.getElementById('detail').style.display = 'none'; document.getElementById('ia-page').style.display = 'none'; document.getElementById('profile-page').style.display = 'none'; document.getElementById('home').style.display = 'block'; }
     </script>
