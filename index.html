@@ -834,7 +834,7 @@
 
         window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
 
-        initVocab(); updateStats(); renderCats(); renderThemes('Asass'); if (!profile.dateInscrit) { profile.dateInscrit = new Date().toLocaleDateString(); localStorage.setItem('profile', JSON.stringify(profile)); }
+        initVocab(); updateStats(); renderCats(); renderThemes('Fondamentaux'); document.querySelectorAll('.cat-btn').forEach((btn, i) => { btn.classList.remove('active'); if (i === 0) btn.classList.add('active'); }); if (!profile.dateInscrit) { profile.dateInscrit = new Date().toLocaleDateString(); localStorage.setItem('profile', JSON.stringify(profile)); }
 
         function backHome() { document.getElementById('detail').style.display = 'none'; document.getElementById('ia-page').style.display = 'none'; document.getElementById('profile-page').style.display = 'none'; document.getElementById('home').style.display = 'block'; }
     </script>
