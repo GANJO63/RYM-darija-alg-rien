@@ -830,7 +830,7 @@
             } 
         }
 
-        function installPWA() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') alert('✅ Sbt!'); deferredPrompt = null; }); } else { alert('⬇️ Machi possible'); } }
+        function installPWA() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') alert('✅ Sbt!'); deferredPrompt = null; }); } else { const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'; if (isLocal) { alert('📱 Sab na3 local:\n\n1. Ouvre sur HTTPS (GitHub Pages)\n2. Ou ajoute manuellement a homescreen\n\nWala probleme, app marche normalement!'); } else { alert('⬇️ Marche pas hadak browser\n\nEssay autre browser (Chrome, Firefox)'); } } }
 
         window.addEventListener('beforeinstallprompt', event => { event.preventDefault(); deferredPrompt = event; });
 
