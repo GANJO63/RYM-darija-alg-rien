@@ -1,0 +1,5 @@
+{
+  "buildCommand": "ls",
+  "installCommand": "ls",
+  "outputDirectory": "."
+}
